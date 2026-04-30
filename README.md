@@ -1,6 +1,6 @@
 # artisan-roast-sdk
 
-TypeScript SDK for building integrations with [Artisan Roast](https://artisanroast.app) stores.
+TypeScript SDK for building integrations with [Artisan Roast](https://github.com/yuens1002/artisan-roast) stores.
 
 Implement the provider contract and your plans, add-ons, or plugins will render in any Artisan Roast store — no store-side code changes required. Community providers are welcome.
 
