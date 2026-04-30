@@ -42,8 +42,12 @@ docs/{short-description}   # docs-only
 4. Follow `.skills/doc.md` for what else to update
 5. Run `npm run build` — verify dist/ builds clean
 6. Commit with conventional message: `feat:`, `fix:`, `chore:`, `docs:`
-7. Open a PR against `master`; merge when ready
-8. Railway auto-deploys on merge to `master`
+7. Open a PR against `master`
+8. Wait for Copilot to review — do not merge before a review appears
+9. Address every Copilot inline comment: apply the fix in code OR reply explaining why it was declined
+10. Resolve all review threads (a reply alone is not enough — threads must be explicitly resolved)
+11. Merge when all threads are resolved
+12. Railway auto-deploys on merge to `master`
 
 ---
 
