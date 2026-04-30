@@ -1,6 +1,6 @@
 {
   "name": "artisan-roast-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TypeScript SDK for building integrations with Artisan Roast stores — plans, add-ons, and plugins",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -23,7 +23,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "start": "node dist/mcp/server.js",
+    "dev": "PORT=3100 node dist/mcp/server.js"
   },
   "keywords": [
     "artisan-roast",
@@ -38,6 +40,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yuens1002/artisan-roast-sdk.git"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.0.0"
   },
   "devDependencies": {
     "typescript": "^5.0.0"

@@ -1,6 +1,6 @@
 # Provider Spec — artisan-roast-sdk
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 
 Implement these two endpoints and your plans will render in any Artisan Roast store. The store has no slug-specific logic — it renders whatever your payload says.
 
@@ -77,14 +77,14 @@ Controls which build mode renders a plan card.
 
 Each `HydratedPlan` has a `state` field. The `status` discriminant tells the store which layout to render.
 
-### `none` — not subscribed
+### `NONE` — not subscribed
 
 Show pricing and a subscribe CTA.
 
 ```json
 {
   "state": {
-    "status": "none",
+    "status": "NONE",
     "actions": [
       { "slug": "subscribe", "label": "Subscribe Now", "url": "https://buy.stripe.com/..." }
     ]
@@ -94,14 +94,14 @@ Show pricing and a subscribe CTA.
 
 ---
 
-### `active` — active subscription
+### `ACTIVE` — active subscription
 
 Show badge, renewal date, usage pools, and management CTA.
 
 ```json
 {
   "state": {
-    "status": "active",
+    "status": "ACTIVE",
     "badge": "Active",
     "badgeIcon": "check-circle-2",
     "renewalDate": "2026-05-30",
@@ -123,14 +123,14 @@ Show badge, renewal date, usage pools, and management CTA.
 
 ---
 
-### `trial` — active time-bounded trial
+### `TRIAL` — active time-bounded trial
 
 Show a days-remaining progress bar and billing CTA.
 
 ```json
 {
   "state": {
-    "status": "trial",
+    "status": "TRIAL",
     "badge": "Active Trial",
     "badgeIcon": "clock",
     "daysRemaining": 10,
@@ -151,14 +151,14 @@ When billing has been added and the trial is extended to 30 days, return `badge:
 
 ---
 
-### `expired` — grace period before deprovision
+### `EXPIRED` — grace period before deprovision
 
 Show the progress bar at zero and a subscribe CTA.
 
 ```json
 {
   "state": {
-    "status": "expired",
+    "status": "EXPIRED",
     "badge": "Expired",
     "badgeIcon": "clock",
     "daysRemaining": 0,
@@ -173,14 +173,14 @@ Show the progress bar at zero and a subscribe CTA.
 
 ---
 
-### `cancelled` — subscription cancelled, reactivation window open
+### `CANCELLED` — subscription cancelled, reactivation window open
 
 Show a countdown to deprovision and a reactivate CTA.
 
 ```json
 {
   "state": {
-    "status": "cancelled",
+    "status": "CANCELLED",
     "badge": "Cancellation Pending",
     "daysRemaining": 12,
     "daysLimit": 14,
@@ -194,14 +194,14 @@ Show a countdown to deprovision and a reactivate CTA.
 
 ---
 
-### `inactive` — lapsed subscription
+### `INACTIVE` — lapsed subscription
 
 Show deactivation date, previous features, and a renew CTA.
 
 ```json
 {
   "state": {
-    "status": "inactive",
+    "status": "INACTIVE",
     "badge": "Inactive",
     "deactivatedAt": "2026-03-15T00:00:00Z",
     "previousFeatures": ["priority-support"],

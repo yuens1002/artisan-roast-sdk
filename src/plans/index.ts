@@ -133,13 +133,13 @@ export type PlanState =
 
 /** Not subscribed — show pricing and subscribe CTA */
 export interface NoneState {
-  status: "none";
+  status: "NONE";
   actions: PlanAction[];
 }
 
 /** Active subscription */
 export interface ActiveState {
-  status: "active";
+  status: "ACTIVE";
   badge: string;
   badgeIcon?: string;
   renewalDate?: string;
@@ -149,7 +149,7 @@ export interface ActiveState {
 
 /** Active time-bounded trial */
 export interface TrialState {
-  status: "trial";
+  status: "TRIAL";
   badge: string;
   badgeIcon?: string;
   daysRemaining: number;
@@ -160,7 +160,7 @@ export interface TrialState {
 
 /** Trial or subscription expired — grace period before deprovision */
 export interface ExpiredState {
-  status: "expired";
+  status: "EXPIRED";
   badge: string;
   badgeIcon?: string;
   daysRemaining: number;
@@ -171,7 +171,7 @@ export interface ExpiredState {
 
 /** Subscription cancelled — reactivation window open */
 export interface CancelledState {
-  status: "cancelled";
+  status: "CANCELLED";
   badge: string;
   daysRemaining: number;
   daysLimit: number;
@@ -181,7 +181,7 @@ export interface CancelledState {
 
 /** Lapsed subscription — previously held this plan */
 export interface InactiveState {
-  status: "inactive";
+  status: "INACTIVE";
   badge: string;
   deactivatedAt: string;
   previousFeatures: string[];
