@@ -36,12 +36,14 @@ docs/{short-description}   # docs-only
 
 ## Making a change
 
-1. Create a feature branch
+1. Create a feature branch from `master`
 2. Edit `src/` — never edit `dist/` directly
 3. Run `npm run typecheck` — must pass before any commit
 4. Follow `.skills/doc.md` for what else to update
 5. Run `npm run build` — verify dist/ builds clean
 6. Commit with conventional message: `feat:`, `fix:`, `chore:`, `docs:`
+7. Open a PR against `master`; merge when ready
+8. Railway auto-deploys on merge to `master`
 
 ---
 
@@ -55,18 +57,19 @@ docs/{short-description}   # docs-only
 
 After 1.0: follow semver strictly (breaking → major).
 
-**Bump steps:**
+**Bump steps (on the feature branch, before opening the PR):**
 1. Update `"version"` in `package.json`
 2. Add section to `CHANGELOG.md` (see `.skills/doc.md`)
 3. Run `npm run build`
 4. Commit: `chore: bump to vX.Y.Z`
-5. Tag: `git tag vX.Y.Z && git push --tags`
+5. Open PR, merge to `master`
+6. Tag on `master` after merge: `git tag vX.Y.Z && git push --tags`
 
 ---
 
 ## Shipping (Railway deploy)
 
-Railway auto-deploys on every push to `master` (GitHub source connected). No manual deploy step needed.
+Railway auto-deploys on every merge to `master` (GitHub source connected, auto-deploy enabled). No manual deploy step needed.
 
 To verify the deployed version:
 ```bash
