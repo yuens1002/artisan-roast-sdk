@@ -4,7 +4,7 @@
  * TypeScript types and endpoint contract for building plan integrations.
  * Any plan provider — first-party or community — implements this shape.
  *
- * @see https://github.com/yuens1002/artisan-roast-plan-sdk
+ * @see https://github.com/yuens1002/artisan-roast-sdk
  */
 
 // ---------------------------------------------------------------------------
@@ -15,8 +15,8 @@ export interface PlanDetails {
   sla?: {
     availability?: string;
     responseTime?: string;
-    videoCallBooking?: string;
-    videoCallDuration?: string;
+    sessionBooking?: string;
+    sessionDuration?: string;
   };
   scope?: string[];
   terms?: string[];
