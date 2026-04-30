@@ -17,6 +17,12 @@ function createMcpServer(): McpServer {
 }
 
 const httpServer = http.createServer(async (req, res) => {
+  if (req.url === "/health" || req.url === "/") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ status: "ok", version: "0.2.0" }));
+    return;
+  }
+
   if (!req.url?.startsWith("/mcp")) {
     res.writeHead(404, { "Content-Type": "text/plain" });
     res.end("Not Found");
