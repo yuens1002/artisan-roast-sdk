@@ -147,4 +147,17 @@ export const PlanSchema = z.object({
 
 export const HydratedPlanSchema = PlanSchema.extend({
   state: PlanStateSchema,
+}).superRefine((data, ctx) => {
+  const modalSlugs = new Set((data.actionModals ?? []).map((m) => m.slug));
+  const actions =
+    "actions" in data.state ? (data.state.actions as Array<{ slug: string; modalSlug?: string }>) : [];
+  for (const action of actions) {
+    if (action.modalSlug && !modalSlugs.has(action.modalSlug)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Action "${action.slug}" references modalSlug "${action.modalSlug}" but no matching entry exists in actionModals`,
+        path: ["state", "actions"],
+      });
+    }
+  }
 });

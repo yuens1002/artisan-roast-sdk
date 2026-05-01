@@ -123,7 +123,7 @@ export interface PlanAction {
   icon?: string;
   /** Button visual variant */
   variant?: "primary" | "secondary" | "ghost" | "destructive";
-  /** Which actionModal (by slug) to open before executing this action */
+  /** Which actionModals[] entry (by slug) to open before executing this action */
   modalSlug?: string;
   disabled?: boolean;
   /** Tooltip shown when disabled */
