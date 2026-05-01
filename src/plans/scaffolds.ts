@@ -1,18 +1,42 @@
-import type { HydratedPlan } from "./index.js";
+import type { ConfirmActionConfig, HydratedPlan } from "./index.js";
 
-const cancelModal = {
-  heading: "Cancel your plan?",
-  description: "Tell us why before you go.",
-  reasons: [
-    { value: "too-expensive", label: "Too expensive" },
-    { value: "missing-features", label: "Missing features" },
-    { value: "switching", label: "Switching to another platform" },
-    { value: "dont-need", label: "Don't need it anymore" },
-    { value: "other", label: "Other" },
-  ],
-  keepLabel: "Keep plan",
-  confirmLabel: "Cancel plan",
+const trialCancelReasons = [
+  { value: "too-soon", label: "Still evaluating — need more time" },
+  { value: "missing-features", label: "Missing features I need" },
+  { value: "too-expensive", label: "Plan too expensive" },
+  { value: "switching", label: "Switching to another platform" },
+  { value: "other", label: "Other" },
+];
+
+const trialCancelOther = {
+  label: "Tell us a bit more",
+  placeholder: "What are we missing?",
+  maxLength: 500,
 };
+
+const houseBlendTrialModals: ConfirmActionConfig[] = [
+  {
+    slug: "cancel-trial",
+    heading: "Cancel your trial?",
+    description: "We'd love to know why before you go.",
+    reasonsLabel: "Reason for cancelling",
+    reasons: trialCancelReasons,
+    keepLabel: "Keep trial",
+    confirmLabel: "Cancel trial",
+    other: trialCancelOther,
+  },
+  {
+    slug: "cancel-stripe",
+    heading: "Cancel your trial?",
+    description: "Your card is on file. Cancel to stop any future charges.",
+    reasonsLabel: "Reason for cancelling",
+    reasons: trialCancelReasons,
+    keepLabel: "Keep trial",
+    confirmLabel: "Continue to Stripe",
+    confirmIcon: "external-link",
+    other: trialCancelOther,
+  },
+];
 
 const futureDateStr = (daysFromNow: number): string =>
   new Date(Date.now() + daysFromNow * 24 * 60 * 60 * 1000).toISOString();
@@ -41,7 +65,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
     },
     highlight: false,
     visibility: "hosted",
-    actionModal: { ...cancelModal, keepLabel: "Keep trial", confirmLabel: "Cancel trial" },
+    actionModals: houseBlendTrialModals,
     state: {
       status: "TRIAL",
       badge: "Active Trial",
@@ -55,7 +79,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           url: "https://buy.stripe.com/test_extend",
           variant: "primary",
         },
-        { slug: "cancel", label: "Cancel", variant: "ghost" },
+        { slug: "cancel", label: "Cancel", variant: "ghost", modalSlug: "cancel-trial" },
       ],
     },
   },
@@ -78,7 +102,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
     },
     highlight: false,
     visibility: "hosted",
-    actionModal: { ...cancelModal, keepLabel: "Keep trial", confirmLabel: "Cancel trial" },
+    actionModals: houseBlendTrialModals,
     state: {
       status: "TRIAL",
       badge: "Extended Trial",
@@ -94,7 +118,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           disabled: true,
           disabledReason: "Billing already on file",
         },
-        { slug: "cancel", label: "Cancel", variant: "ghost" },
+        { slug: "cancel", label: "Cancel", variant: "ghost", modalSlug: "cancel-stripe" },
       ],
     },
   },

@@ -1,6 +1,6 @@
 # Provider Spec — artisan-roast-sdk
 
-**Version:** 0.2.0
+**Version:** 0.2.1
 
 Implement these two endpoints and your plans will render in any Artisan Roast store. The store has no slug-specific logic — it renders whatever your payload says.
 
@@ -223,7 +223,7 @@ The store recognises these slugs and handles them:
 | `subscribe` | Opens `url` in new tab |
 | `add-billing` | Opens `url` in new tab; respects `disabled` + `disabledReason` |
 | `manage-billing` | POSTs to `endpoint`, redirects to returned `{ url }` |
-| `cancel` | Opens the plan's `actionModal` dialog before proceeding |
+| `cancel` | Opens the modal identified by `action.modalSlug` from the plan's `actionModals` array |
 | `reactivate` | Opens `url` in new tab |
 | `renew` | Opens `url` in new tab |
 
@@ -253,27 +253,50 @@ Any [Lucide](https://lucide.dev) icon name is valid. Common values:
 
 ---
 
-## `actionModal`
+## `actionModals`
 
-Optional on any plan. When present, the `cancel` action opens a reason-capture dialog before proceeding. If absent, the dialog trigger is hidden.
+Optional array on any plan. Each entry is a `ConfirmActionConfig` identified by `slug`. A `PlanAction` references an entry via `modalSlug` — when clicked, the store opens the matching dialog before executing the action. If `actionModals` is absent or no action has a `modalSlug`, no dialog is shown.
 
 ```json
 {
-  "actionModal": {
-    "heading": "Cancel your plan?",
-    "description": "Tell us why before you go.",
-    "reasons": [
-      { "value": "too-expensive", "label": "Too expensive" },
-      { "value": "other", "label": "Other" }
-    ],
-    "keepLabel": "Keep plan",
-    "confirmLabel": "Cancel plan",
-    "confirmIcon": "external-link"
-  }
+  "actionModals": [
+    {
+      "slug": "cancel-trial",
+      "heading": "Cancel your trial?",
+      "description": "We'd love to know why before you go.",
+      "reasonsLabel": "Reason for cancelling",
+      "reasons": [
+        { "value": "missing-features", "label": "Missing features I need" },
+        { "value": "too-expensive", "label": "Plan too expensive" },
+        { "value": "other", "label": "Other" }
+      ],
+      "keepLabel": "Keep trial",
+      "confirmLabel": "Cancel trial",
+      "other": {
+        "label": "Tell us a bit more",
+        "placeholder": "What are we missing?",
+        "maxLength": 500
+      }
+    },
+    {
+      "slug": "cancel-stripe",
+      "heading": "Cancel your trial?",
+      "description": "Your card is on file. Cancel to stop any future charges.",
+      "reasonsLabel": "Reason for cancelling",
+      "reasons": [
+        { "value": "missing-features", "label": "Missing features I need" },
+        { "value": "too-expensive", "label": "Plan too expensive" },
+        { "value": "other", "label": "Other" }
+      ],
+      "keepLabel": "Keep trial",
+      "confirmLabel": "Continue to Stripe",
+      "confirmIcon": "external-link"
+    }
+  ]
 }
 ```
 
-`confirmIcon` is optional — include `"external-link"` when the confirm action navigates away from the store.
+`confirmIcon` is optional — include `"external-link"` when the confirm action navigates away from the store. `other` is optional — include to show a free-text textarea below the reason dropdown.
 
 ---
 

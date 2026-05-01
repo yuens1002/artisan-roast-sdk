@@ -71,9 +71,10 @@ Each \`PlanState\` carries an \`actions\` array. Render them as buttons:
 
 ## Cancel dialog
 
-If \`plan.actionModal\` is set, render a reason-capture dialog on the \`cancel\`
-action before proceeding. The dialog heading, description, reasons list, and
-button labels all come from \`plan.actionModal\` — no hardcoded copy in the store.
+If an action has a \`modalSlug\`, look up the matching entry in \`plan.actionModals\`
+by slug and render a reason-capture dialog before proceeding. All copy — heading,
+description, reasonsLabel, reasons, keepLabel, confirmLabel — comes from the modal
+config. No hardcoded copy in the store.
 `;
 
 export function registerPlanResources(server: McpServer): void {

@@ -31,10 +31,14 @@ export interface PlanDetails {
 // ---------------------------------------------------------------------------
 
 export interface ConfirmActionConfig {
+  /** Unique identifier within the plan — PlanAction.modalSlug references this */
+  slug: string;
   /** Dialog heading */
   heading: string;
   /** Dialog body copy */
   description: string;
+  /** Label for the reason dropdown */
+  reasonsLabel: string;
   /** Reason dropdown options */
   reasons: Array<{ value: string; label: string }>;
   /** Dismiss button label */
@@ -43,6 +47,13 @@ export interface ConfirmActionConfig {
   confirmLabel: string;
   /** Lucide icon name for the confirm button (e.g. "external-link"). Omit for no icon. */
   confirmIcon?: string;
+  /** "Other" free-text field — omit to hide */
+  other?: {
+    label: string;
+    placeholder: string;
+    /** Character limit; drives the "0 / N" counter */
+    maxLength: number;
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -76,8 +87,8 @@ export interface Plan {
   saleEndsAt?: string;
   /** Sale badge text (e.g. "Launch Special") */
   saleLabel?: string;
-  /** Reason-capture dialog config. Omit to hide the dialog trigger. */
-  actionModal?: ConfirmActionConfig;
+  /** Reason-capture dialog configs. PlanAction.modalSlug references entries by slug. Omit to hide all dialogs. */
+  actionModals?: ConfirmActionConfig[];
 }
 
 // ---------------------------------------------------------------------------
@@ -112,6 +123,8 @@ export interface PlanAction {
   icon?: string;
   /** Button visual variant */
   variant?: "primary" | "secondary" | "ghost" | "destructive";
+  /** Which actionModal (by slug) to open before executing this action */
+  modalSlug?: string;
   disabled?: boolean;
   /** Tooltip shown when disabled */
   disabledReason?: string;
