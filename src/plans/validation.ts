@@ -7,6 +7,7 @@ export const PlanActionSchema = z.object({
   endpoint: z.string().optional(),
   icon: z.string().optional(),
   variant: z.enum(["primary", "secondary", "ghost", "destructive"]).optional(),
+  modalSlug: z.string().optional(),
   disabled: z.boolean().optional(),
   disabledReason: z.string().optional(),
 });
@@ -105,8 +106,10 @@ export const PlanDetailsSchema = z.object({
 });
 
 export const ConfirmActionConfigSchema = z.object({
+  slug: z.string(),
   heading: z.string(),
   description: z.string(),
+  reasonsLabel: z.string(),
   reasons: z.array(
     z.object({
       value: z.string(),
@@ -116,6 +119,13 @@ export const ConfirmActionConfigSchema = z.object({
   keepLabel: z.string(),
   confirmLabel: z.string(),
   confirmIcon: z.string().optional(),
+  other: z
+    .object({
+      label: z.string(),
+      placeholder: z.string(),
+      maxLength: z.number(),
+    })
+    .optional(),
 });
 
 export const PlanSchema = z.object({
@@ -132,9 +142,22 @@ export const PlanSchema = z.object({
   salePrice: z.number().optional(),
   saleEndsAt: z.string().optional(),
   saleLabel: z.string().optional(),
-  actionModal: ConfirmActionConfigSchema.optional(),
+  actionModals: z.array(ConfirmActionConfigSchema).optional(),
 });
 
 export const HydratedPlanSchema = PlanSchema.extend({
   state: PlanStateSchema,
+}).superRefine((data, ctx) => {
+  const modalSlugs = new Set((data.actionModals ?? []).map((m) => m.slug));
+  const actions =
+    "actions" in data.state ? (data.state.actions as Array<{ slug: string; modalSlug?: string }>) : [];
+  for (const action of actions) {
+    if (action.modalSlug && !modalSlugs.has(action.modalSlug)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Action "${action.slug}" references modalSlug "${action.modalSlug}" but no matching entry exists in actionModals`,
+        path: ["state", "actions"],
+      });
+    }
+  }
 });

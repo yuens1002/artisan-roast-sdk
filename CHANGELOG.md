@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-04-30
+
+### Breaking Changes
+
+- `Plan.actionModal` renamed to `Plan.actionModals` (now an array). Update any `plan.actionModal` reads to `plan.actionModals?.find(m => m.slug === action.modalSlug)`.
+- `ConfirmActionConfig` gains two required fields: `slug` (unique within the plan) and `reasonsLabel` (dropdown label). Existing modal objects must add these.
+
+### Added
+
+- `ConfirmActionConfig.slug` — unique identifier; `PlanAction.modalSlug` references this to select the correct dialog per action
+- `ConfirmActionConfig.reasonsLabel` — label rendered above the reason dropdown
+- `ConfirmActionConfig.other` — optional free-text textarea config (`label`, `placeholder`, `maxLength`)
+- `PlanAction.modalSlug` — references a `ConfirmActionConfig` by slug; allows different actions to open different dialogs on the same plan
+
 ## [0.2.0] - 2026-04-30
 
 ### Breaking Changes
