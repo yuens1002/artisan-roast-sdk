@@ -38,13 +38,17 @@ const houseBlendTrialModals: ConfirmActionConfig[] = [
   },
 ];
 
+const futureDate = (daysFromNow: number): Date =>
+  new Date(Date.now() + daysFromNow * 24 * 60 * 60 * 1000);
+
 const futureDateStr = (daysFromNow: number): string =>
-  new Date(Date.now() + daysFromNow * 24 * 60 * 60 * 1000).toISOString();
+  futureDate(daysFromNow).toISOString();
 
 const renewalDateStr = (daysFromNow: number): string =>
-  new Date(Date.now() + daysFromNow * 24 * 60 * 60 * 1000)
-    .toISOString()
-    .split("T")[0]!;
+  futureDate(daysFromNow).toISOString().split("T")[0]!;
+
+const formatLongDate = (date: Date): string =>
+  date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
 const trialBenefits = {
   activeItems: [
@@ -141,43 +145,46 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
     },
   },
 
-  TRIAL_EXPIRED: {
-    slug: "house-blend-trial",
-    name: "House Blend Trial",
-    description: "Risk-free for 14 days — full features, no card, no commitment.",
-    price: 0,
-    currency: "USD",
-    interval: "month",
-    features: ["hosting", "custom-domain", "trial"],
-    details: { benefits: trialBenefits },
-    highlight: false,
-    visibility: "hosted",
-    state: {
-      status: "EXPIRED",
-      badge: "Expired",
-      badgeIcon: "clock",
-      progress: {
-        icon: "clock",
-        label: "Trial days",
-        value: 0,
-        total: 14,
-        countLabel: "remaining",
-      },
-      deprovisionAt: futureDateStr(2),
-      statusInfo: {
-        descIcon: "alert-circle",
-        descText: `Trial ended. Store will be removed on ${new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}.`,
-      },
-      actions: [
-        {
-          slug: "subscribe",
-          label: "Subscribe Now",
-          url: "https://buy.stripe.com/test_subscribe",
-          variant: "primary",
+  TRIAL_EXPIRED: (() => {
+    const deprovisionDate = futureDate(2);
+    return {
+      slug: "house-blend-trial",
+      name: "House Blend Trial",
+      description: "Risk-free for 14 days — full features, no card, no commitment.",
+      price: 0,
+      currency: "USD",
+      interval: "month",
+      features: ["hosting", "custom-domain", "trial"],
+      details: { benefits: trialBenefits },
+      highlight: false,
+      visibility: "hosted",
+      state: {
+        status: "EXPIRED" as const,
+        badge: "Expired",
+        badgeIcon: "clock",
+        progress: {
+          icon: "clock",
+          label: "Trial days",
+          value: 0,
+          total: 14,
+          countLabel: "remaining",
         },
-      ],
-    },
-  },
+        deprovisionAt: deprovisionDate.toISOString(),
+        statusInfo: {
+          descIcon: "alert-circle",
+          descText: `Trial ended. Store will be removed on ${formatLongDate(deprovisionDate)}.`,
+        },
+        actions: [
+          {
+            slug: "subscribe",
+            label: "Subscribe Now",
+            url: "https://buy.stripe.com/test_subscribe",
+            variant: "primary" as const,
+          },
+        ],
+      },
+    };
+  })(),
 
   CONVERTED: {
     slug: "house-blend",
