@@ -22,7 +22,7 @@ const houseBlendTrialModals: ConfirmActionConfig[] = [
     reasonsLabel: "Reason for cancelling",
     reasons: trialCancelReasons,
     keepLabel: "Keep trial",
-    confirmLabel: "Cancel trial",
+    confirmLabel: "Cancel Trial",
     other: trialCancelOther,
   },
   {
@@ -46,22 +46,35 @@ const renewalDateStr = (daysFromNow: number): string =>
     .toISOString()
     .split("T")[0]!;
 
+const trialBenefits = {
+  activeItems: [
+    "No billing needed — add card to extend to 30 days",
+    "Download your data as a ZIP anytime",
+    "100% feature parity from day 1",
+    "Cancel anytime — no contract, no commitment",
+  ],
+};
+
+const houseBlendBenefits = {
+  activeItems: [
+    "Everything in Community Roast",
+    "Managed hosting & backups",
+    "Custom domain configuration",
+    "5 priority support tickets/month, 48-hr SLA",
+  ],
+};
+
 export const SCENARIOS: Record<string, HydratedPlan> = {
   TRIAL_ACTIVE_NO_CARD: {
     slug: "house-blend-trial",
     name: "House Blend Trial",
-    description: "Risk-free for 14 days — full hosting, no card, no commitment.",
+    description: "Risk-free for 14 days — full features, no card, no commitment.",
     price: 0,
     currency: "USD",
     interval: "month",
     features: ["hosting", "custom-domain", "trial"],
     details: {
-      benefits: [
-        "No billing needed — or add billing to extend your trial up to 30 days",
-        "You own your trial data — download a ZIP anytime during the trial",
-        "100% feature parity from day 1",
-        "Cancel anytime — no contract, no commitment",
-      ],
+      benefits: trialBenefits,
     },
     highlight: false,
     visibility: "hosted",
@@ -70,8 +83,13 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
       status: "TRIAL",
       badge: "Active Trial",
       badgeIcon: "clock",
-      daysRemaining: 10,
-      daysLimit: 14,
+      progress: {
+        icon: "clock",
+        label: "Trial days",
+        value: 10,
+        total: 14,
+        countLabel: "remaining",
+      },
       actions: [
         {
           slug: "add-billing",
@@ -79,7 +97,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           url: "https://buy.stripe.com/test_extend",
           variant: "primary",
         },
-        { slug: "cancel", label: "Cancel", variant: "ghost", modalSlug: "cancel-trial" },
+        { slug: "cancel", label: "Cancel Trial", variant: "ghost", modalSlug: "cancel-trial" },
       ],
     },
   },
@@ -87,18 +105,13 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
   TRIAL_ACTIVE_CARD_ADDED: {
     slug: "house-blend-trial",
     name: "House Blend Trial",
-    description: "Risk-free for 14 days — full hosting, no card, no commitment.",
+    description: "Risk-free for 14 days — full features, no card, no commitment.",
     price: 0,
     currency: "USD",
     interval: "month",
     features: ["hosting", "custom-domain", "trial"],
     details: {
-      benefits: [
-        "No billing needed — or add billing to extend your trial up to 30 days",
-        "You own your trial data — download a ZIP anytime during the trial",
-        "100% feature parity from day 1",
-        "Cancel anytime — no contract, no commitment",
-      ],
+      benefits: trialBenefits,
     },
     highlight: false,
     visibility: "hosted",
@@ -107,8 +120,13 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
       status: "TRIAL",
       badge: "Extended Trial",
       badgeIcon: "clock",
-      daysRemaining: 25,
-      daysLimit: 30,
+      progress: {
+        icon: "clock",
+        label: "Trial days",
+        value: 25,
+        total: 30,
+        countLabel: "remaining",
+      },
       actions: [
         {
           slug: "add-billing",
@@ -118,7 +136,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           disabled: true,
           disabledReason: "Billing already on file",
         },
-        { slug: "cancel", label: "Cancel", variant: "ghost", modalSlug: "cancel-stripe" },
+        { slug: "cancel", label: "Cancel Trial", variant: "ghost", modalSlug: "cancel-stripe" },
       ],
     },
   },
@@ -126,21 +144,30 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
   TRIAL_EXPIRED: {
     slug: "house-blend-trial",
     name: "House Blend Trial",
-    description: "Risk-free for 14 days — full hosting, no card, no commitment.",
+    description: "Risk-free for 14 days — full features, no card, no commitment.",
     price: 0,
     currency: "USD",
     interval: "month",
     features: ["hosting", "custom-domain", "trial"],
-    details: {},
+    details: { benefits: trialBenefits },
     highlight: false,
     visibility: "hosted",
     state: {
       status: "EXPIRED",
       badge: "Expired",
       badgeIcon: "clock",
-      daysRemaining: 0,
-      daysLimit: 14,
-      deprovisionAt: futureDateStr(16),
+      progress: {
+        icon: "clock",
+        label: "Trial days",
+        value: 0,
+        total: 14,
+        countLabel: "remaining",
+      },
+      deprovisionAt: futureDateStr(2),
+      statusInfo: {
+        descIcon: "alert-circle",
+        descText: `Trial ended. Store will be removed on ${new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}.`,
+      },
       actions: [
         {
           slug: "subscribe",
@@ -155,18 +182,13 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
   CONVERTED: {
     slug: "house-blend",
     name: "House Blend",
-    description: "Full managed hosting with priority support included.",
-    price: 4900,
+    description: "Fully managed hosting with custom domain and priority support.",
+    price: 7900,
     currency: "USD",
     interval: "month",
     features: ["hosting", "custom-domain", "priority-support", "tickets"],
     details: {
-      benefits: [
-        "Custom domain with SSL",
-        "5 priority support tickets/month, 48-hr SLA",
-        "Automatic backups and updates",
-        "Managed infrastructure",
-      ],
+      benefits: houseBlendBenefits,
       sla: { responseTime: "48 hours" },
     },
     highlight: true,
@@ -175,14 +197,17 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
       status: "ACTIVE",
       badge: "Active",
       badgeIcon: "check-circle-2",
-      renewalDate: renewalDateStr(30),
+      statusInfo: {
+        descIcon: "rotate-cw",
+        descText: `Renews on ${renewalDateStr(30)}.`,
+      },
       pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 1 }],
       actions: [
         {
           slug: "manage-billing",
           label: "Manage Billing",
           endpoint: "/api/billing/portal",
-          icon: "external-link",
+          iconAfter: "external-link",
           variant: "secondary",
         },
       ],
@@ -192,18 +217,13 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
   DIRECT_SUBSCRIBE: {
     slug: "house-blend",
     name: "House Blend",
-    description: "Full managed hosting with priority support included.",
-    price: 4900,
+    description: "Fully managed hosting with custom domain and priority support.",
+    price: 7900,
     currency: "USD",
     interval: "month",
     features: ["hosting", "custom-domain", "priority-support", "tickets"],
     details: {
-      benefits: [
-        "Custom domain with SSL",
-        "5 priority support tickets/month, 48-hr SLA",
-        "Automatic backups and updates",
-        "Managed infrastructure",
-      ],
+      benefits: houseBlendBenefits,
       sla: { responseTime: "48 hours" },
     },
     highlight: true,
@@ -212,14 +232,17 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
       status: "ACTIVE",
       badge: "Active",
       badgeIcon: "check-circle-2",
-      renewalDate: renewalDateStr(30),
+      statusInfo: {
+        descIcon: "rotate-cw",
+        descText: `Renews on ${renewalDateStr(30)}.`,
+      },
       pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 0 }],
       actions: [
         {
           slug: "manage-billing",
           label: "Manage Billing",
           endpoint: "/api/billing/portal",
-          icon: "external-link",
+          iconAfter: "external-link",
           variant: "secondary",
         },
       ],
@@ -235,11 +258,13 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
     interval: "month",
     features: ["self-hosted"],
     details: {
-      benefits: [
-        "Full source code access",
-        "Community support",
-        "No usage limits",
-      ],
+      benefits: {
+        activeItems: [
+          "Full source code access",
+          "Community support",
+          "No usage limits",
+        ],
+      },
       terms: ["Self-managed infrastructure required"],
     },
     highlight: false,
@@ -255,6 +280,48 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           label: "View Terms",
           url: "/admin/support/terms",
           variant: "ghost",
+        },
+      ],
+    },
+  },
+
+  INACTIVE: {
+    slug: "house-blend",
+    name: "House Blend",
+    description: "Fully managed hosting with custom domain and priority support.",
+    price: 7900,
+    currency: "USD",
+    interval: "month",
+    features: ["hosting", "custom-domain", "priority-support", "tickets"],
+    details: {
+      benefits: {
+        activeItems: houseBlendBenefits.activeItems,
+        inactiveHeader: "Renew to get back:",
+        inactiveItems: [
+          "Custom domain with SSL",
+          "5 priority support tickets/month",
+          "Managed hosting & backups",
+          "48-hour SLA",
+        ],
+      },
+      sla: { responseTime: "48 hours" },
+    },
+    highlight: false,
+    visibility: "hosted",
+    state: {
+      status: "INACTIVE",
+      badge: "Inactive",
+      badgeIcon: "circle-slash",
+      deactivatedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+      statusInfo: {
+        descText: "Subscription ended. Renew to restore your store.",
+      },
+      actions: [
+        {
+          slug: "renew",
+          label: "Renew",
+          url: "https://buy.stripe.com/test_subscribe",
+          variant: "primary",
         },
       ],
     },

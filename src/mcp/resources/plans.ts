@@ -34,19 +34,19 @@ switch (plan.state.status) {
     // Not subscribed — show plan.state.actions (subscribe CTA)
     break;
   case "ACTIVE":
-    // Active subscription — show badge, renewalDate, pools (UsageBar), manage CTA
+    // Active subscription — show badge, statusInfo, pools (UsageBar), manage CTA
     break;
   case "TRIAL":
-    // Active trial — show badge, days-remaining bar (daysRemaining / daysLimit)
+    // Active trial — show badge, progress bar (state.progress), statusInfo, billing CTA
     break;
   case "EXPIRED":
-    // Grace period — show badge, bar at 0, deprovisionAt warning, subscribe CTA
+    // Grace period — show badge, bar at 0, statusInfo (deprovision date), subscribe CTA
     break;
   case "CANCELLED":
-    // Cancelled — show countdown to deprovision, reactivate CTA
+    // Cancelled — show countdown to deprovision, statusInfo, reactivate CTA
     break;
   case "INACTIVE":
-    // Lapsed — show deactivatedAt, previousFeatures, renew CTA
+    // Lapsed — show deactivatedAt, statusInfo, inactiveItems benefits, renew CTA
     break;
 }
 \`\`\`
@@ -62,11 +62,52 @@ const visiblePlans = plans.filter(
 );
 \`\`\`
 
+## Benefits block
+
+\`plan.details.benefits\` is a \`BenefitsBlock\`, not a plain string array. Render
+the correct items based on state:
+
+\`\`\`typescript
+const block = plan.details.benefits;
+const items = state.status === "INACTIVE" && block?.inactiveItems
+  ? block.inactiveItems
+  : block?.activeItems ?? [];
+const header = state.status === "INACTIVE"
+  ? block?.inactiveHeader
+  : block?.activeHeader;
+\`\`\`
+
+Item icons (green check) are hardcoded in the component — not a payload field.
+
+## Progress bar
+
+\`TrialState\` and \`ExpiredState\` carry a \`progress: ProgressBar\` field:
+
+\`\`\`typescript
+// ProgressBar shape
+{ icon: "clock", label: "Trial days", value: 10, total: 14, countLabel: "remaining" }
+// Render as: <Icon name={progress.icon} /> {progress.label}  {progress.value} / {progress.total} {progress.countLabel}
+\`\`\`
+
+## Status info
+
+\`statusInfo?: { descIcon?: string; descText?: string }\` is an optional secondary
+line below the badge. The platform builds the full sentence; the store renders it:
+
+\`\`\`typescript
+if (state.statusInfo?.descText) {
+  // render: <Icon name={state.statusInfo.descIcon} /> {state.statusInfo.descText}
+}
+\`\`\`
+
+Present on: ACTIVE, TRIAL, EXPIRED, CANCELLED, INACTIVE.
+
 ## Actions
 
 Each \`PlanState\` carries an \`actions\` array. Render them as buttons:
 - \`url\`: open in new tab
 - \`endpoint\`: POST to the platform path, follow the returned \`{ url }\`
+- \`iconBefore\` / \`iconAfter\`: Lucide icon rendered before or after the label
 - Respect \`disabled\` and \`disabledReason\` — render a tooltip when disabled
 
 ## Cancel dialog

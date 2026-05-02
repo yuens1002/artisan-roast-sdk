@@ -11,6 +11,23 @@
 // Plan details
 // ---------------------------------------------------------------------------
 
+/**
+ * Benefit item block.
+ * Drives the benefits list on a plan card.
+ * Platform builds these strings server-side; component controls icon and colour.
+ * Each item is capped at 50 characters for card legibility.
+ */
+export interface BenefitsBlock {
+  /** Heading shown in active/trial/expired states (e.g. "What's included:"). Omit to skip heading. */
+  activeHeader?: string;
+  /** Benefit items for active/trial/expired states. 50 char max per item. */
+  activeItems: string[];
+  /** Heading shown in INACTIVE state (e.g. "Renew to get back:"). Omit to skip heading. */
+  inactiveHeader?: string;
+  /** Benefit items for INACTIVE state. Falls back to activeItems if absent. 50 char max per item. */
+  inactiveItems?: string[];
+}
+
 export interface PlanDetails {
   sla?: {
     availability?: string;
@@ -21,7 +38,7 @@ export interface PlanDetails {
   scope?: string[];
   terms?: string[];
   quotas?: Array<{ icon: string; slug: string; label: string; limit: number }>;
-  benefits?: string[];
+  benefits?: BenefitsBlock;
   excludes?: string[];
 }
 
@@ -105,6 +122,38 @@ export interface UsagePool {
 }
 
 // ---------------------------------------------------------------------------
+// Progress bar
+// Rendered as a time-bounded progress bar on trial/expired plan cards.
+// Platform computes all values server-side before sending payload.
+// ---------------------------------------------------------------------------
+
+export interface ProgressBar {
+  /** Lucide icon name shown beside the label (e.g. "clock") */
+  icon: string;
+  /** Bar label (e.g. "Trial days") */
+  label: string;
+  /** Current value — the first number shown (e.g. days remaining) */
+  value: number;
+  /** Maximum value — the second number shown (e.g. total trial days) */
+  total: number;
+  /** Unit label after the count pair (e.g. "remaining" | "used") */
+  countLabel: string;
+}
+
+// ---------------------------------------------------------------------------
+// Status info
+// Optional secondary description line below the badge.
+// Platform builds the full sentence at payload time.
+// ---------------------------------------------------------------------------
+
+export interface StatusInfo {
+  /** Lucide icon name shown beside the description (e.g. "rotate-cw") */
+  descIcon?: string;
+  /** Full sentence status description (e.g. "Renews on May 28, 2026.") */
+  descText?: string;
+}
+
+// ---------------------------------------------------------------------------
 // Plan action
 // Drives every CTA on a plan card. The store renders actions without
 // knowing what plan or provider produced them.
@@ -119,8 +168,10 @@ export interface PlanAction {
   url?: string;
   /** Internal platform endpoint path the store POSTs to on click */
   endpoint?: string;
-  /** Lucide icon name */
-  icon?: string;
+  /** Lucide icon name rendered before the label */
+  iconBefore?: string;
+  /** Lucide icon name rendered after the label */
+  iconAfter?: string;
   /** Button visual variant */
   variant?: "primary" | "secondary" | "ghost" | "destructive";
   /** Which actionModals[] entry (by slug) to open before executing this action */
@@ -155,7 +206,8 @@ export interface ActiveState {
   status: "ACTIVE";
   badge: string;
   badgeIcon?: string;
-  renewalDate?: string;
+  /** Secondary status line (e.g. "Renews on May 28, 2026.") */
+  statusInfo?: StatusInfo;
   pools: UsagePool[];
   actions: PlanAction[];
 }
@@ -165,9 +217,9 @@ export interface TrialState {
   status: "TRIAL";
   badge: string;
   badgeIcon?: string;
-  daysRemaining: number;
-  daysLimit: number;
+  progress: ProgressBar;
   deprovisionAt?: string;
+  statusInfo?: StatusInfo;
   actions: PlanAction[];
 }
 
@@ -176,9 +228,9 @@ export interface ExpiredState {
   status: "EXPIRED";
   badge: string;
   badgeIcon?: string;
-  daysRemaining: number;
-  daysLimit: number;
+  progress: ProgressBar;
   deprovisionAt?: string;
+  statusInfo?: StatusInfo;
   actions: PlanAction[];
 }
 
@@ -189,6 +241,7 @@ export interface CancelledState {
   daysRemaining: number;
   daysLimit: number;
   deprovisionAt: string;
+  statusInfo?: StatusInfo;
   actions: PlanAction[];
 }
 
@@ -196,8 +249,9 @@ export interface CancelledState {
 export interface InactiveState {
   status: "INACTIVE";
   badge: string;
+  badgeIcon?: string;
   deactivatedAt: string;
-  previousFeatures: string[];
+  statusInfo?: StatusInfo;
   actions: PlanAction[];
 }
 
