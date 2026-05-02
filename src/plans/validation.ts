@@ -5,7 +5,8 @@ export const PlanActionSchema = z.object({
   label: z.string(),
   url: z.string().optional(),
   endpoint: z.string().optional(),
-  icon: z.string().optional(),
+  iconBefore: z.string().optional(),
+  iconAfter: z.string().optional(),
   variant: z.enum(["primary", "secondary", "ghost", "destructive"]).optional(),
   modalSlug: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -20,6 +21,19 @@ export const UsagePoolSchema = z.object({
   purchased: z.number().optional(),
 });
 
+export const ProgressBarSchema = z.object({
+  icon: z.string(),
+  label: z.string(),
+  value: z.number(),
+  total: z.number(),
+  countLabel: z.string(),
+});
+
+export const StatusInfoSchema = z.object({
+  descIcon: z.string().optional(),
+  descText: z.string().optional(),
+});
+
 export const NoneStateSchema = z.object({
   status: z.literal("NONE"),
   actions: z.array(PlanActionSchema),
@@ -29,7 +43,7 @@ export const ActiveStateSchema = z.object({
   status: z.literal("ACTIVE"),
   badge: z.string(),
   badgeIcon: z.string().optional(),
-  renewalDate: z.string().optional(),
+  statusInfo: StatusInfoSchema.optional(),
   pools: z.array(UsagePoolSchema),
   actions: z.array(PlanActionSchema),
 });
@@ -38,9 +52,9 @@ export const TrialStateSchema = z.object({
   status: z.literal("TRIAL"),
   badge: z.string(),
   badgeIcon: z.string().optional(),
-  daysRemaining: z.number(),
-  daysLimit: z.number(),
+  progress: ProgressBarSchema,
   deprovisionAt: z.string().optional(),
+  statusInfo: StatusInfoSchema.optional(),
   actions: z.array(PlanActionSchema),
 });
 
@@ -48,9 +62,9 @@ export const ExpiredStateSchema = z.object({
   status: z.literal("EXPIRED"),
   badge: z.string(),
   badgeIcon: z.string().optional(),
-  daysRemaining: z.number(),
-  daysLimit: z.number(),
+  progress: ProgressBarSchema,
   deprovisionAt: z.string().optional(),
+  statusInfo: StatusInfoSchema.optional(),
   actions: z.array(PlanActionSchema),
 });
 
@@ -60,14 +74,16 @@ export const CancelledStateSchema = z.object({
   daysRemaining: z.number(),
   daysLimit: z.number(),
   deprovisionAt: z.string(),
+  statusInfo: StatusInfoSchema.optional(),
   actions: z.array(PlanActionSchema),
 });
 
 export const InactiveStateSchema = z.object({
   status: z.literal("INACTIVE"),
   badge: z.string(),
+  badgeIcon: z.string().optional(),
   deactivatedAt: z.string(),
-  previousFeatures: z.array(z.string()),
+  statusInfo: StatusInfoSchema.optional(),
   actions: z.array(PlanActionSchema),
 });
 
@@ -79,6 +95,13 @@ export const PlanStateSchema = z.discriminatedUnion("status", [
   CancelledStateSchema,
   InactiveStateSchema,
 ]);
+
+export const BenefitsBlockSchema = z.object({
+  activeHeader: z.string().optional(),
+  activeItems: z.array(z.string()),
+  inactiveHeader: z.string().optional(),
+  inactiveItems: z.array(z.string()).optional(),
+});
 
 export const PlanDetailsSchema = z.object({
   sla: z
@@ -101,7 +124,7 @@ export const PlanDetailsSchema = z.object({
       })
     )
     .optional(),
-  benefits: z.array(z.string()).optional(),
+  benefits: BenefitsBlockSchema.optional(),
   excludes: z.array(z.string()).optional(),
 });
 

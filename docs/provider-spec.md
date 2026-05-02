@@ -1,6 +1,6 @@
 # Provider Spec — artisan-roast-sdk
 
-**Version:** 0.2.1
+**Version:** 0.3.0
 
 Implement these two endpoints and your plans will render in any Artisan Roast store. The store has no slug-specific logic — it renders whatever your payload says.
 
@@ -28,7 +28,9 @@ Returns static plan definitions — pricing, details, visibility. Used by market
       "interval": "month",
       "features": ["my-feature"],
       "details": {
-        "benefits": ["Feature one", "Feature two"],
+        "benefits": {
+          "activeItems": ["Feature one", "Feature two"]
+        },
         "terms": ["Billed monthly, cancel anytime"]
       },
       "highlight": false,
@@ -73,6 +75,62 @@ Controls which build mode renders a plan card.
 
 ---
 
+## `BenefitsBlock`
+
+`plan.details.benefits` is a `BenefitsBlock`, not a plain string array. The store selects items based on `state.status`:
+
+```typescript
+interface BenefitsBlock {
+  activeHeader?: string;    // heading for active/trial/expired states
+  activeItems: string[];    // 50 char max per item
+  inactiveHeader?: string;  // e.g. "Renew to get back:"
+  inactiveItems?: string[]; // falls back to activeItems if absent; 50 char max
+}
+```
+
+**Store dispatch:**
+```typescript
+const items = state.status === "INACTIVE" && block.inactiveItems
+  ? block.inactiveItems
+  : block.activeItems;
+const header = state.status === "INACTIVE" ? block.inactiveHeader : block.activeHeader;
+```
+
+Item icons (green check) are hardcoded in the component — not a payload field.
+
+---
+
+## `ProgressBar`
+
+Used on `TrialState` and `ExpiredState` in place of raw `daysRemaining`/`daysLimit` values. Platform computes all values server-side.
+
+```typescript
+interface ProgressBar {
+  icon: string;       // Lucide icon name (e.g. "clock")
+  label: string;      // e.g. "Trial days"
+  value: number;      // current value (e.g. 10 remaining)
+  total: number;      // maximum (e.g. 14 total)
+  countLabel: string; // e.g. "remaining" | "used"
+}
+```
+
+Rendered as: `{icon} {label}   {value} / {total} {countLabel}`
+
+---
+
+## `StatusInfo`
+
+Optional secondary description line below the badge, available on all states except `NONE`. Platform builds the full sentence server-side — the store renders it verbatim.
+
+```typescript
+interface StatusInfo {
+  descIcon?: string; // Lucide icon name (e.g. "rotate-cw", "alert-circle")
+  descText?: string; // full sentence (e.g. "Renews on May 28, 2026.")
+}
+```
+
+---
+
 ## State variants
 
 Each `HydratedPlan` has a `state` field. The `status` discriminant tells the store which layout to render.
@@ -96,7 +154,7 @@ Show pricing and a subscribe CTA.
 
 ### `ACTIVE` — active subscription
 
-Show badge, renewal date, usage pools, and management CTA.
+Show badge, `statusInfo` (renewal date), usage pools, and management CTA.
 
 ```json
 {
@@ -104,7 +162,10 @@ Show badge, renewal date, usage pools, and management CTA.
     "status": "ACTIVE",
     "badge": "Active",
     "badgeIcon": "check-circle-2",
-    "renewalDate": "2026-05-30",
+    "statusInfo": {
+      "descIcon": "rotate-cw",
+      "descText": "Renews on May 30, 2026."
+    },
     "pools": [
       { "slug": "tickets", "label": "Priority Tickets", "limit": 5, "used": 2 }
     ],
@@ -113,7 +174,7 @@ Show badge, renewal date, usage pools, and management CTA.
         "slug": "manage-billing",
         "label": "Manage Billing",
         "endpoint": "/api/billing/portal",
-        "icon": "external-link",
+        "iconAfter": "external-link",
         "variant": "secondary"
       }
     ]
@@ -125,7 +186,7 @@ Show badge, renewal date, usage pools, and management CTA.
 
 ### `TRIAL` — active time-bounded trial
 
-Show a days-remaining progress bar and billing CTA.
+Show a progress bar and billing CTA.
 
 ```json
 {
@@ -133,17 +194,22 @@ Show a days-remaining progress bar and billing CTA.
     "status": "TRIAL",
     "badge": "Active Trial",
     "badgeIcon": "clock",
-    "daysRemaining": 10,
-    "daysLimit": 14,
+    "progress": {
+      "icon": "clock",
+      "label": "Trial days",
+      "value": 10,
+      "total": 14,
+      "countLabel": "remaining"
+    },
     "actions": [
-      { "slug": "add-billing", "label": "Add Billing", "url": "https://buy.stripe.com/..." },
-      { "slug": "cancel", "label": "Cancel", "variant": "ghost" }
+      { "slug": "add-billing", "label": "Add Billing", "url": "https://buy.stripe.com/...", "variant": "primary" },
+      { "slug": "cancel", "label": "Cancel Trial", "variant": "ghost", "modalSlug": "cancel-trial" }
     ]
   }
 }
 ```
 
-When billing has been added and the trial is extended to 30 days, return `badge: "Extended Trial"` and `daysLimit: 30`. To disable `add-billing` once billing is on file:
+When billing has been added and the trial is extended to 30 days, return `badge: "Extended Trial"` and `progress.total: 30`. To disable `add-billing` once billing is on file:
 
 ```json
 { "slug": "add-billing", "label": "Add Billing", "url": "...", "disabled": true, "disabledReason": "Billing already on file" }
@@ -153,7 +219,7 @@ When billing has been added and the trial is extended to 30 days, return `badge:
 
 ### `EXPIRED` — grace period before deprovision
 
-Show the progress bar at zero and a subscribe CTA.
+Show the progress bar at zero, `statusInfo` with deprovision date, and a subscribe CTA.
 
 ```json
 {
@@ -161,11 +227,20 @@ Show the progress bar at zero and a subscribe CTA.
     "status": "EXPIRED",
     "badge": "Expired",
     "badgeIcon": "clock",
-    "daysRemaining": 0,
-    "daysLimit": 14,
+    "progress": {
+      "icon": "clock",
+      "label": "Trial days",
+      "value": 0,
+      "total": 14,
+      "countLabel": "remaining"
+    },
     "deprovisionAt": "2026-05-14T00:00:00Z",
+    "statusInfo": {
+      "descIcon": "alert-circle",
+      "descText": "Trial ended. Store will be removed on May 14, 2026."
+    },
     "actions": [
-      { "slug": "subscribe", "label": "Subscribe Now", "url": "https://buy.stripe.com/..." }
+      { "slug": "subscribe", "label": "Subscribe Now", "url": "https://buy.stripe.com/...", "variant": "primary" }
     ]
   }
 }
@@ -185,8 +260,11 @@ Show a countdown to deprovision and a reactivate CTA.
     "daysRemaining": 12,
     "daysLimit": 14,
     "deprovisionAt": "2026-05-14T00:00:00Z",
+    "statusInfo": {
+      "descText": "Cancellation scheduled. Access ends May 14, 2026."
+    },
     "actions": [
-      { "slug": "reactivate", "label": "Reactivate", "url": "https://buy.stripe.com/..." }
+      { "slug": "reactivate", "label": "Reactivate", "url": "https://buy.stripe.com/...", "variant": "primary" }
     ]
   }
 }
@@ -196,17 +274,20 @@ Show a countdown to deprovision and a reactivate CTA.
 
 ### `INACTIVE` — lapsed subscription
 
-Show deactivation date, previous features, and a renew CTA.
+Show deactivation date, `statusInfo`, comeback benefits (`inactiveItems`), and a renew CTA. Comeback copy lives in `plan.details.benefits.inactiveItems` — not in state.
 
 ```json
 {
   "state": {
     "status": "INACTIVE",
     "badge": "Inactive",
+    "badgeIcon": "circle-slash",
     "deactivatedAt": "2026-03-15T00:00:00Z",
-    "previousFeatures": ["priority-support"],
+    "statusInfo": {
+      "descText": "Subscription ended. Renew to restore your store."
+    },
     "actions": [
-      { "slug": "renew", "label": "Renew", "url": "https://buy.stripe.com/..." }
+      { "slug": "renew", "label": "Renew", "url": "https://buy.stripe.com/...", "variant": "primary" }
     ]
   }
 }
@@ -242,6 +323,16 @@ Unknown slugs are rendered as buttons but no special handling is applied — saf
 
 ---
 
+## Action icons
+
+`PlanAction` has separate `iconBefore?` and `iconAfter?` fields. Use any [Lucide](https://lucide.dev) icon name:
+
+```json
+{ "slug": "manage-billing", "label": "Manage Billing", "iconAfter": "external-link" }
+```
+
+---
+
 ## Badge icons
 
 Any [Lucide](https://lucide.dev) icon name is valid. Common values:
@@ -250,6 +341,7 @@ Any [Lucide](https://lucide.dev) icon name is valid. Common values:
 |-------|----------|
 | `"check-circle-2"` | Active subscription |
 | `"clock"` | Trial, expired — time-bounded states |
+| `"circle-slash"` | Inactive |
 
 ---
 
@@ -271,7 +363,7 @@ Optional array on any plan. Each entry is a `ConfirmActionConfig` identified by 
         { "value": "other", "label": "Other" }
       ],
       "keepLabel": "Keep trial",
-      "confirmLabel": "Cancel trial",
+      "confirmLabel": "Cancel Trial",
       "other": {
         "label": "Tell us a bit more",
         "placeholder": "What are we missing?",
