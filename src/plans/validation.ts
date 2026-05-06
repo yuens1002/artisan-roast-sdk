@@ -19,6 +19,7 @@ export const UsagePoolSchema = z.object({
   limit: z.number(),
   used: z.number(),
   purchased: z.number().optional(),
+  cta: PlanActionSchema.optional(),
 });
 
 export const ProgressBarSchema = z.object({
