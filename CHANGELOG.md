@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-05-07
+
+### Added
+
+- `PRIORITY_SUPPORT_NONE` scaffold — NONE state, subscribe action with `iconAfter: "external-link"`, cancel-subscription modal
+- `PRIORITY_SUPPORT_ACTIVE` scaffold — ACTIVE state, ticket + session pools with `cta`, manage-billing + cancel in `state.actions`
+- `PRIORITY_SUPPORT_INACTIVE` scaffold — INACTIVE state, `inactiveItems`, renew action
+- `SELF_HOSTED_FREE_WITH_ADDONS` scaffold — Community plan with residual add-on pool credits; demonstrates pool CTAs persisting across subscription changes
+
+### Fixed
+
+- `SELF_HOSTED_FREE` slug corrected from `"community"` to `"free"` (matches platform DB)
+
+## [0.3.1] - 2026-05-06
+
+### Added
+
+- `UsagePool.cta?: PlanAction` — optional per-pool action (e.g. "Book 1:1 Session" on the sessions pool). Pool-level CTAs persist across plan state changes because add-on credits are account-level, not subscription-level. `UsagePoolSchema` updated to match.
+
 ## [0.3.0] - 2026-05-02
 
 ### Breaking Changes
