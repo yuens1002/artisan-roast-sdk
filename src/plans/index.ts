@@ -7,6 +7,9 @@
  * @see https://github.com/yuens1002/artisan-roast-sdk
  */
 
+// Re-export scaffolds so callers can import from the main entry
+export { SCENARIOS, SCENARIO_KEYS } from "./scaffolds";
+
 // ---------------------------------------------------------------------------
 // Plan details
 // ---------------------------------------------------------------------------

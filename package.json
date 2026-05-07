@@ -8,16 +8,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
     "./plans": {
       "types": "./dist/plans/index.d.ts",
-      "import": "./dist/plans/index.mjs",
+      "import": "./dist/plans/index.js",
       "require": "./dist/plans/index.js"
     },
     "./plans/scaffolds": {
       "types": "./dist/plans/scaffolds.d.ts",
+      "import": "./dist/plans/scaffolds.js",
       "require": "./dist/plans/scaffolds.js"
     }
   },
