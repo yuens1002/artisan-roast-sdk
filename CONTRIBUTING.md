@@ -34,10 +34,18 @@ src/
   doc.md            ← when + how to update docs
   workflow.md       ← branch → build → version → deploy → notify
 
+spec/
+  provider-plan.spec.md   ← living integration contract (producer + consumer)
+
 docs/
-  provider-spec.md  ← full integration guide (producer + consumer)
-  plan.md           ← delivery roadmap
-  session-N/ACs.md  ← acceptance criteria per session
+  provider-plan-spec/     ← feature work on the plan contract
+    {feature-name}/
+      plan.md             ← what was built and why
+      ACs.md              ← acceptance criteria
+  tooling/                ← MCP server, deploy, infra work
+    {feature-name}/
+      plan.md
+      ACs.md
 ```
 
 **Personal AI config:** put your tool-specific files (CLAUDE.md, .cursorrules, etc.) in `.ai/` — it is gitignored, no changes to `.gitignore` needed.
@@ -99,7 +107,7 @@ Pre-1.0: breaking changes (renamed status literals, changed type shapes, removed
 
 | Module | Types | MCP tools | Spec |
 |--------|-------|-----------|------|
-| `plans` | `Plan`, `HydratedPlan`, `PlanState`, `PlanAction` | `validate_plan_payload`, `scaffold_plan_state`, `scaffold_resolved_endpoint` | `docs/provider-spec.md` |
+| `plans` | `Plan`, `HydratedPlan`, `PlanState`, `PlanAction` | `validate_plan_payload`, `scaffold_plan_state`, `scaffold_resolved_endpoint` | `spec/provider-plan.spec.md` |
 
 To add a module: follow `.skills/workflow.md` → "Adding a new module".
 
