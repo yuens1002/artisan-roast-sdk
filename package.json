@@ -15,6 +15,10 @@
       "types": "./dist/plans/index.d.ts",
       "import": "./dist/plans/index.mjs",
       "require": "./dist/plans/index.js"
+    },
+    "./plans/scaffolds": {
+      "types": "./dist/plans/scaffolds.d.ts",
+      "require": "./dist/plans/scaffolds.js"
     }
   },
   "files": [
