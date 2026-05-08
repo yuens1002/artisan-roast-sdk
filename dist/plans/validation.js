@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HydratedPlanSchema = exports.PlanSchema = exports.ConfirmActionConfigSchema = exports.PlanDetailsSchema = exports.BenefitsBlockSchema = exports.PlanStateSchema = exports.InactiveStateSchema = exports.CancelledStateSchema = exports.ExpiredStateSchema = exports.TrialStateSchema = exports.ActiveStateSchema = exports.NoneStateSchema = exports.StatusInfoSchema = exports.ProgressBarSchema = exports.UsagePoolSchema = exports.PlanActionSchema = void 0;
+exports.HydratedPlanSchema = exports.PlanSchema = exports.ConfirmActionConfigSchema = exports.PlanDetailsSchema = exports.BenefitsBlockSchema = exports.PlanStateSchema = exports.InactiveStateSchema = exports.CancelledStateSchema = exports.ExpiredStateSchema = exports.TrialStateSchema = exports.ActiveStateSchema = exports.NoneStateSchema = exports.StatusInfoSchema = exports.UsagePoolSchema = exports.PlanActionSchema = void 0;
 const zod_1 = require("zod");
 exports.PlanActionSchema = zod_1.z.object({
     slug: zod_1.z.string(),
@@ -20,14 +20,9 @@ exports.UsagePoolSchema = zod_1.z.object({
     limit: zod_1.z.number(),
     used: zod_1.z.number(),
     purchased: zod_1.z.number().optional(),
+    icon: zod_1.z.string().optional(),
+    countLabel: zod_1.z.string().optional(),
     cta: exports.PlanActionSchema.optional(),
-});
-exports.ProgressBarSchema = zod_1.z.object({
-    icon: zod_1.z.string(),
-    label: zod_1.z.string(),
-    value: zod_1.z.number(),
-    total: zod_1.z.number(),
-    countLabel: zod_1.z.string(),
 });
 exports.StatusInfoSchema = zod_1.z.object({
     descIcon: zod_1.z.string().optional(),
@@ -49,7 +44,7 @@ exports.TrialStateSchema = zod_1.z.object({
     status: zod_1.z.literal("TRIAL"),
     badge: zod_1.z.string(),
     badgeIcon: zod_1.z.string().optional(),
-    progress: exports.ProgressBarSchema,
+    pools: zod_1.z.array(exports.UsagePoolSchema),
     deprovisionAt: zod_1.z.string().optional(),
     statusInfo: exports.StatusInfoSchema.optional(),
     actions: zod_1.z.array(exports.PlanActionSchema),
@@ -58,7 +53,7 @@ exports.ExpiredStateSchema = zod_1.z.object({
     status: zod_1.z.literal("EXPIRED"),
     badge: zod_1.z.string(),
     badgeIcon: zod_1.z.string().optional(),
-    progress: exports.ProgressBarSchema,
+    pools: zod_1.z.array(exports.UsagePoolSchema),
     deprovisionAt: zod_1.z.string().optional(),
     statusInfo: exports.StatusInfoSchema.optional(),
     actions: zod_1.z.array(exports.PlanActionSchema),

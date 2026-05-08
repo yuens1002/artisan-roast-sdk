@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-05-07
+
+### Changed
+
+- **Breaking:** `TrialState.progress: ProgressBar` → `TrialState.pools: UsagePool[]`
+- **Breaking:** `ExpiredState.progress: ProgressBar` → `ExpiredState.pools: UsagePool[]`
+- **Breaking:** `ProgressBar` type removed — consumers rendering trial/expired states must switch to `UsagePool[]`
+
+### Added
+
+- `UsagePool.icon?: string` — Lucide icon name rendered before the pool label
+- `UsagePool.countLabel?: string` — unit suffix; consumers render `{used} / {limit} {countLabel}`
+
+### Scaffold corrections
+
+- `SELF_HOSTED_FREE` — description corrected to `"Self hosted with community support"`
+- `SELF_HOSTED_FREE_WITH_ADDONS` — both pools gain `icon` + `countLabel`
+- `PRIORITY_SUPPORT_ACTIVE` — both pools gain `icon` + `countLabel`
+- `TRIAL_ACTIVE_NO_CARD` — `progress` replaced with `pools: [trial-days pool]`
+- `TRIAL_ACTIVE_CARD_ADDED` — same pools; `add-billing` action removed (card already on file)
+- `TRIAL_EXPIRED` — trial-days pool with `used === limit`; actions replaced with `extend-trial` (primary) + `end-trial` (ghost)
+- `CONVERTED` / `DIRECT_SUBSCRIBE` — `manage-billing` action already present (no change)
+- `INACTIVE` — `inactiveItems` already populated (no change)
+
+### Consumer migration
+
+- `artisan-roast-platform`: grep `progress:`, replace with `pools:` in trial/expired state builders
+- `ecomm-ai-app`: remove `ProgressBar` renderer; render trial pools identically to active pools
+
 ## [0.3.2] - 2026-05-07
 
 ### Added

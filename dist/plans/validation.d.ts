@@ -39,6 +39,8 @@ export declare const UsagePoolSchema: z.ZodObject<{
     limit: z.ZodNumber;
     used: z.ZodNumber;
     purchased: z.ZodOptional<z.ZodNumber>;
+    icon: z.ZodOptional<z.ZodString>;
+    countLabel: z.ZodOptional<z.ZodString>;
     cta: z.ZodOptional<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
@@ -74,11 +76,13 @@ export declare const UsagePoolSchema: z.ZodObject<{
         disabledReason?: string | undefined;
     }>>;
 }, "strip", z.ZodTypeAny, {
+    used: number;
     slug: string;
     label: string;
     limit: number;
-    used: number;
     purchased?: number | undefined;
+    icon?: string | undefined;
+    countLabel?: string | undefined;
     cta?: {
         slug: string;
         label: string;
@@ -92,11 +96,13 @@ export declare const UsagePoolSchema: z.ZodObject<{
         disabledReason?: string | undefined;
     } | undefined;
 }, {
+    used: number;
     slug: string;
     label: string;
     limit: number;
-    used: number;
     purchased?: number | undefined;
+    icon?: string | undefined;
+    countLabel?: string | undefined;
     cta?: {
         slug: string;
         label: string;
@@ -109,25 +115,6 @@ export declare const UsagePoolSchema: z.ZodObject<{
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
     } | undefined;
-}>;
-export declare const ProgressBarSchema: z.ZodObject<{
-    icon: z.ZodString;
-    label: z.ZodString;
-    value: z.ZodNumber;
-    total: z.ZodNumber;
-    countLabel: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    label: string;
-    value: number;
-    icon: string;
-    total: number;
-    countLabel: string;
-}, {
-    label: string;
-    value: number;
-    icon: string;
-    total: number;
-    countLabel: string;
 }>;
 export declare const StatusInfoSchema: z.ZodObject<{
     descIcon: z.ZodOptional<z.ZodString>;
@@ -224,6 +211,8 @@ export declare const ActiveStateSchema: z.ZodObject<{
         limit: z.ZodNumber;
         used: z.ZodNumber;
         purchased: z.ZodOptional<z.ZodNumber>;
+        icon: z.ZodOptional<z.ZodString>;
+        countLabel: z.ZodOptional<z.ZodString>;
         cta: z.ZodOptional<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
@@ -259,11 +248,13 @@ export declare const ActiveStateSchema: z.ZodObject<{
             disabledReason?: string | undefined;
         }>>;
     }, "strip", z.ZodTypeAny, {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -277,11 +268,13 @@ export declare const ActiveStateSchema: z.ZodObject<{
             disabledReason?: string | undefined;
         } | undefined;
     }, {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -332,11 +325,13 @@ export declare const ActiveStateSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     badge: string;
     pools: {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -371,11 +366,13 @@ export declare const ActiveStateSchema: z.ZodObject<{
 }, {
     badge: string;
     pools: {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -412,25 +409,89 @@ export declare const TrialStateSchema: z.ZodObject<{
     status: z.ZodLiteral<"TRIAL">;
     badge: z.ZodString;
     badgeIcon: z.ZodOptional<z.ZodString>;
-    progress: z.ZodObject<{
-        icon: z.ZodString;
+    pools: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
         label: z.ZodString;
-        value: z.ZodNumber;
-        total: z.ZodNumber;
-        countLabel: z.ZodString;
+        limit: z.ZodNumber;
+        used: z.ZodNumber;
+        purchased: z.ZodOptional<z.ZodNumber>;
+        icon: z.ZodOptional<z.ZodString>;
+        countLabel: z.ZodOptional<z.ZodString>;
+        cta: z.ZodOptional<z.ZodObject<{
+            slug: z.ZodString;
+            label: z.ZodString;
+            url: z.ZodOptional<z.ZodString>;
+            endpoint: z.ZodOptional<z.ZodString>;
+            iconBefore: z.ZodOptional<z.ZodString>;
+            iconAfter: z.ZodOptional<z.ZodString>;
+            variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+            modalSlug: z.ZodOptional<z.ZodString>;
+            disabled: z.ZodOptional<z.ZodBoolean>;
+            disabledReason: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
     }, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    }>;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }>, "many">;
     deprovisionAt: z.ZodOptional<z.ZodString>;
     statusInfo: z.ZodOptional<z.ZodObject<{
         descIcon: z.ZodOptional<z.ZodString>;
@@ -478,13 +539,27 @@ export declare const TrialStateSchema: z.ZodObject<{
     }>, "many">;
 }, "strip", z.ZodTypeAny, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "TRIAL";
     actions: {
         slug: string;
@@ -506,13 +581,27 @@ export declare const TrialStateSchema: z.ZodObject<{
     } | undefined;
 }, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "TRIAL";
     actions: {
         slug: string;
@@ -537,25 +626,89 @@ export declare const ExpiredStateSchema: z.ZodObject<{
     status: z.ZodLiteral<"EXPIRED">;
     badge: z.ZodString;
     badgeIcon: z.ZodOptional<z.ZodString>;
-    progress: z.ZodObject<{
-        icon: z.ZodString;
+    pools: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
         label: z.ZodString;
-        value: z.ZodNumber;
-        total: z.ZodNumber;
-        countLabel: z.ZodString;
+        limit: z.ZodNumber;
+        used: z.ZodNumber;
+        purchased: z.ZodOptional<z.ZodNumber>;
+        icon: z.ZodOptional<z.ZodString>;
+        countLabel: z.ZodOptional<z.ZodString>;
+        cta: z.ZodOptional<z.ZodObject<{
+            slug: z.ZodString;
+            label: z.ZodString;
+            url: z.ZodOptional<z.ZodString>;
+            endpoint: z.ZodOptional<z.ZodString>;
+            iconBefore: z.ZodOptional<z.ZodString>;
+            iconAfter: z.ZodOptional<z.ZodString>;
+            variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+            modalSlug: z.ZodOptional<z.ZodString>;
+            disabled: z.ZodOptional<z.ZodBoolean>;
+            disabledReason: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
     }, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    }>;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }>, "many">;
     deprovisionAt: z.ZodOptional<z.ZodString>;
     statusInfo: z.ZodOptional<z.ZodObject<{
         descIcon: z.ZodOptional<z.ZodString>;
@@ -603,13 +756,27 @@ export declare const ExpiredStateSchema: z.ZodObject<{
     }>, "many">;
 }, "strip", z.ZodTypeAny, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "EXPIRED";
     actions: {
         slug: string;
@@ -631,13 +798,27 @@ export declare const ExpiredStateSchema: z.ZodObject<{
     } | undefined;
 }, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "EXPIRED";
     actions: {
         slug: string;
@@ -929,6 +1110,8 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         limit: z.ZodNumber;
         used: z.ZodNumber;
         purchased: z.ZodOptional<z.ZodNumber>;
+        icon: z.ZodOptional<z.ZodString>;
+        countLabel: z.ZodOptional<z.ZodString>;
         cta: z.ZodOptional<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
@@ -964,11 +1147,13 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             disabledReason?: string | undefined;
         }>>;
     }, "strip", z.ZodTypeAny, {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -982,11 +1167,13 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             disabledReason?: string | undefined;
         } | undefined;
     }, {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -1037,11 +1224,13 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
 }, "strip", z.ZodTypeAny, {
     badge: string;
     pools: {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -1076,11 +1265,13 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
 }, {
     badge: string;
     pools: {
+        used: number;
         slug: string;
         label: string;
         limit: number;
-        used: number;
         purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
         cta?: {
             slug: string;
             label: string;
@@ -1116,25 +1307,89 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
     status: z.ZodLiteral<"TRIAL">;
     badge: z.ZodString;
     badgeIcon: z.ZodOptional<z.ZodString>;
-    progress: z.ZodObject<{
-        icon: z.ZodString;
+    pools: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
         label: z.ZodString;
-        value: z.ZodNumber;
-        total: z.ZodNumber;
-        countLabel: z.ZodString;
+        limit: z.ZodNumber;
+        used: z.ZodNumber;
+        purchased: z.ZodOptional<z.ZodNumber>;
+        icon: z.ZodOptional<z.ZodString>;
+        countLabel: z.ZodOptional<z.ZodString>;
+        cta: z.ZodOptional<z.ZodObject<{
+            slug: z.ZodString;
+            label: z.ZodString;
+            url: z.ZodOptional<z.ZodString>;
+            endpoint: z.ZodOptional<z.ZodString>;
+            iconBefore: z.ZodOptional<z.ZodString>;
+            iconAfter: z.ZodOptional<z.ZodString>;
+            variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+            modalSlug: z.ZodOptional<z.ZodString>;
+            disabled: z.ZodOptional<z.ZodBoolean>;
+            disabledReason: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
     }, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    }>;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }>, "many">;
     deprovisionAt: z.ZodOptional<z.ZodString>;
     statusInfo: z.ZodOptional<z.ZodObject<{
         descIcon: z.ZodOptional<z.ZodString>;
@@ -1182,13 +1437,27 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
     }>, "many">;
 }, "strip", z.ZodTypeAny, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "TRIAL";
     actions: {
         slug: string;
@@ -1210,13 +1479,27 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
     } | undefined;
 }, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "TRIAL";
     actions: {
         slug: string;
@@ -1240,25 +1523,89 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
     status: z.ZodLiteral<"EXPIRED">;
     badge: z.ZodString;
     badgeIcon: z.ZodOptional<z.ZodString>;
-    progress: z.ZodObject<{
-        icon: z.ZodString;
+    pools: z.ZodArray<z.ZodObject<{
+        slug: z.ZodString;
         label: z.ZodString;
-        value: z.ZodNumber;
-        total: z.ZodNumber;
-        countLabel: z.ZodString;
+        limit: z.ZodNumber;
+        used: z.ZodNumber;
+        purchased: z.ZodOptional<z.ZodNumber>;
+        icon: z.ZodOptional<z.ZodString>;
+        countLabel: z.ZodOptional<z.ZodString>;
+        cta: z.ZodOptional<z.ZodObject<{
+            slug: z.ZodString;
+            label: z.ZodString;
+            url: z.ZodOptional<z.ZodString>;
+            endpoint: z.ZodOptional<z.ZodString>;
+            iconBefore: z.ZodOptional<z.ZodString>;
+            iconAfter: z.ZodOptional<z.ZodString>;
+            variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+            modalSlug: z.ZodOptional<z.ZodString>;
+            disabled: z.ZodOptional<z.ZodBoolean>;
+            disabledReason: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
     }, {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    }>;
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }>, "many">;
     deprovisionAt: z.ZodOptional<z.ZodString>;
     statusInfo: z.ZodOptional<z.ZodObject<{
         descIcon: z.ZodOptional<z.ZodString>;
@@ -1306,13 +1653,27 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
     }>, "many">;
 }, "strip", z.ZodTypeAny, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "EXPIRED";
     actions: {
         slug: string;
@@ -1334,13 +1695,27 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
     } | undefined;
 }, {
     badge: string;
-    progress: {
+    pools: {
+        used: number;
+        slug: string;
         label: string;
-        value: number;
-        icon: string;
-        total: number;
-        countLabel: string;
-    };
+        limit: number;
+        purchased?: number | undefined;
+        icon?: string | undefined;
+        countLabel?: string | undefined;
+        cta?: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            iconAfter?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        } | undefined;
+    }[];
     status: "EXPIRED";
     actions: {
         slug: string;
@@ -2271,6 +2646,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             limit: z.ZodNumber;
             used: z.ZodNumber;
             purchased: z.ZodOptional<z.ZodNumber>;
+            icon: z.ZodOptional<z.ZodString>;
+            countLabel: z.ZodOptional<z.ZodString>;
             cta: z.ZodOptional<z.ZodObject<{
                 slug: z.ZodString;
                 label: z.ZodString;
@@ -2306,11 +2683,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 disabledReason?: string | undefined;
             }>>;
         }, "strip", z.ZodTypeAny, {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -2324,11 +2703,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 disabledReason?: string | undefined;
             } | undefined;
         }, {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -2379,11 +2760,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     }, "strip", z.ZodTypeAny, {
         badge: string;
         pools: {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -2418,11 +2801,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     }, {
         badge: string;
         pools: {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -2458,25 +2843,89 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         status: z.ZodLiteral<"TRIAL">;
         badge: z.ZodString;
         badgeIcon: z.ZodOptional<z.ZodString>;
-        progress: z.ZodObject<{
-            icon: z.ZodString;
+        pools: z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
             label: z.ZodString;
-            value: z.ZodNumber;
-            total: z.ZodNumber;
-            countLabel: z.ZodString;
+            limit: z.ZodNumber;
+            used: z.ZodNumber;
+            purchased: z.ZodOptional<z.ZodNumber>;
+            icon: z.ZodOptional<z.ZodString>;
+            countLabel: z.ZodOptional<z.ZodString>;
+            cta: z.ZodOptional<z.ZodObject<{
+                slug: z.ZodString;
+                label: z.ZodString;
+                url: z.ZodOptional<z.ZodString>;
+                endpoint: z.ZodOptional<z.ZodString>;
+                iconBefore: z.ZodOptional<z.ZodString>;
+                iconAfter: z.ZodOptional<z.ZodString>;
+                variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+                modalSlug: z.ZodOptional<z.ZodString>;
+                disabled: z.ZodOptional<z.ZodBoolean>;
+                disabledReason: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }>>;
         }, "strip", z.ZodTypeAny, {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
         }, {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        }>;
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }>, "many">;
         deprovisionAt: z.ZodOptional<z.ZodString>;
         statusInfo: z.ZodOptional<z.ZodObject<{
             descIcon: z.ZodOptional<z.ZodString>;
@@ -2524,13 +2973,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         }>, "many">;
     }, "strip", z.ZodTypeAny, {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "TRIAL";
         actions: {
             slug: string;
@@ -2552,13 +3015,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     }, {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "TRIAL";
         actions: {
             slug: string;
@@ -2582,25 +3059,89 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         status: z.ZodLiteral<"EXPIRED">;
         badge: z.ZodString;
         badgeIcon: z.ZodOptional<z.ZodString>;
-        progress: z.ZodObject<{
-            icon: z.ZodString;
+        pools: z.ZodArray<z.ZodObject<{
+            slug: z.ZodString;
             label: z.ZodString;
-            value: z.ZodNumber;
-            total: z.ZodNumber;
-            countLabel: z.ZodString;
+            limit: z.ZodNumber;
+            used: z.ZodNumber;
+            purchased: z.ZodOptional<z.ZodNumber>;
+            icon: z.ZodOptional<z.ZodString>;
+            countLabel: z.ZodOptional<z.ZodString>;
+            cta: z.ZodOptional<z.ZodObject<{
+                slug: z.ZodString;
+                label: z.ZodString;
+                url: z.ZodOptional<z.ZodString>;
+                endpoint: z.ZodOptional<z.ZodString>;
+                iconBefore: z.ZodOptional<z.ZodString>;
+                iconAfter: z.ZodOptional<z.ZodString>;
+                variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+                modalSlug: z.ZodOptional<z.ZodString>;
+                disabled: z.ZodOptional<z.ZodBoolean>;
+                disabledReason: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }>>;
         }, "strip", z.ZodTypeAny, {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
         }, {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        }>;
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }>, "many">;
         deprovisionAt: z.ZodOptional<z.ZodString>;
         statusInfo: z.ZodOptional<z.ZodObject<{
             descIcon: z.ZodOptional<z.ZodString>;
@@ -2648,13 +3189,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         }>, "many">;
     }, "strip", z.ZodTypeAny, {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "EXPIRED";
         actions: {
             slug: string;
@@ -2676,13 +3231,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     }, {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "EXPIRED";
         actions: {
             slug: string;
@@ -2938,11 +3507,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     } | {
         badge: string;
         pools: {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -2976,13 +3547,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "TRIAL";
         actions: {
             slug: string;
@@ -3004,13 +3589,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "EXPIRED";
         actions: {
             slug: string;
@@ -3145,11 +3744,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     } | {
         badge: string;
         pools: {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -3183,13 +3784,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "TRIAL";
         actions: {
             slug: string;
@@ -3211,13 +3826,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "EXPIRED";
         actions: {
             slug: string;
@@ -3352,11 +3981,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     } | {
         badge: string;
         pools: {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -3390,13 +4021,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "TRIAL";
         actions: {
             slug: string;
@@ -3418,13 +4063,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "EXPIRED";
         actions: {
             slug: string;
@@ -3559,11 +4218,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     } | {
         badge: string;
         pools: {
+            used: number;
             slug: string;
             label: string;
             limit: number;
-            used: number;
             purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
             cta?: {
                 slug: string;
                 label: string;
@@ -3597,13 +4258,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "TRIAL";
         actions: {
             slug: string;
@@ -3625,13 +4300,27 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
     } | {
         badge: string;
-        progress: {
+        pools: {
+            used: number;
+            slug: string;
             label: string;
-            value: number;
-            icon: string;
-            total: number;
-            countLabel: string;
-        };
+            limit: number;
+            purchased?: number | undefined;
+            icon?: string | undefined;
+            countLabel?: string | undefined;
+            cta?: {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                iconAfter?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            } | undefined;
+        }[];
         status: "EXPIRED";
         actions: {
             slug: string;
