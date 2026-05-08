@@ -90,13 +90,16 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
       status: "TRIAL",
       badge: "Active Trial",
       badgeIcon: "clock",
-      progress: {
-        icon: "clock",
-        label: "Trial days",
-        value: 10,
-        total: 14,
-        countLabel: "remaining",
-      },
+      pools: [
+        {
+          slug: "trial-days",
+          icon: "clock",
+          label: "Trial remaining",
+          countLabel: "days",
+          used: 4,
+          limit: 14,
+        },
+      ],
       actions: [
         {
           slug: "add-billing",
@@ -127,22 +130,17 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
       status: "TRIAL",
       badge: "Extended Trial",
       badgeIcon: "clock",
-      progress: {
-        icon: "clock",
-        label: "Trial days",
-        value: 25,
-        total: 30,
-        countLabel: "remaining",
-      },
-      actions: [
+      pools: [
         {
-          slug: "add-billing",
-          label: "Add Billing",
-          url: "https://buy.stripe.com/test_extend",
-          variant: "primary",
-          disabled: true,
-          disabledReason: "Billing already on file",
+          slug: "trial-days",
+          icon: "clock",
+          label: "Trial remaining",
+          countLabel: "days",
+          used: 5,
+          limit: 30,
         },
+      ],
+      actions: [
         { slug: "cancel", label: "Cancel Trial", variant: "ghost", modalSlug: "cancel-stripe" },
       ],
     },
@@ -165,13 +163,16 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
         status: "EXPIRED" as const,
         badge: "Expired",
         badgeIcon: "clock",
-        progress: {
-          icon: "clock",
-          label: "Trial days",
-          value: 0,
-          total: 14,
-          countLabel: "remaining",
-        },
+        pools: [
+          {
+            slug: "trial-days",
+            icon: "clock",
+            label: "Trial remaining",
+            countLabel: "days",
+            used: 14,
+            limit: 14,
+          },
+        ],
         deprovisionAt: deprovisionDate.toISOString(),
         statusInfo: {
           descIcon: "alert-circle",
@@ -179,10 +180,15 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
         },
         actions: [
           {
-            slug: "subscribe",
-            label: "Subscribe Now",
-            url: "https://buy.stripe.com/test_subscribe",
+            slug: "extend-trial",
+            label: "Extend Trial",
+            url: "https://buy.stripe.com/PLACEHOLDER_EXTEND_TRIAL",
             variant: "primary" as const,
+          },
+          {
+            slug: "end-trial",
+            label: "End Trial",
+            variant: "ghost" as const,
           },
         ],
       },
@@ -262,7 +268,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
   SELF_HOSTED_FREE: {
     slug: "free",
     name: "Community",
-    description: "Self-hosted, free forever.",
+    description: "Self hosted with community support",
     price: 0,
     currency: "USD",
     interval: "month",
@@ -396,6 +402,8 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           label: "Priority Tickets",
           limit: 5,
           used: 2,
+          icon: "ticket",
+          countLabel: "used",
           cta: {
             slug: "submit-ticket",
             label: "Submit Ticket",
@@ -408,6 +416,8 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           label: "1:1 Sessions",
           limit: 1,
           used: 0,
+          icon: "calendar",
+          countLabel: "used",
           cta: {
             slug: "book-session",
             label: "Book Session",
@@ -519,6 +529,8 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           limit: 3,
           used: 1,
           purchased: 3,
+          icon: "ticket",
+          countLabel: "used",
           cta: {
             slug: "submit-ticket",
             label: "Submit Ticket",
@@ -532,6 +544,8 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           limit: 1,
           used: 0,
           purchased: 1,
+          icon: "calendar",
+          countLabel: "used",
           cta: {
             slug: "book-session",
             label: "Book Session",
