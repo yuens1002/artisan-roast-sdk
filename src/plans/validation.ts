@@ -19,15 +19,9 @@ export const UsagePoolSchema = z.object({
   limit: z.number(),
   used: z.number(),
   purchased: z.number().optional(),
+  icon: z.string().optional(),
+  countLabel: z.string().optional(),
   cta: PlanActionSchema.optional(),
-});
-
-export const ProgressBarSchema = z.object({
-  icon: z.string(),
-  label: z.string(),
-  value: z.number(),
-  total: z.number(),
-  countLabel: z.string(),
 });
 
 export const StatusInfoSchema = z.object({
@@ -53,7 +47,7 @@ export const TrialStateSchema = z.object({
   status: z.literal("TRIAL"),
   badge: z.string(),
   badgeIcon: z.string().optional(),
-  progress: ProgressBarSchema,
+  pools: z.array(UsagePoolSchema),
   deprovisionAt: z.string().optional(),
   statusInfo: StatusInfoSchema.optional(),
   actions: z.array(PlanActionSchema),
@@ -63,7 +57,7 @@ export const ExpiredStateSchema = z.object({
   status: z.literal("EXPIRED"),
   badge: z.string(),
   badgeIcon: z.string().optional(),
-  progress: ProgressBarSchema,
+  pools: z.array(UsagePoolSchema),
   deprovisionAt: z.string().optional(),
   statusInfo: StatusInfoSchema.optional(),
   actions: z.array(PlanActionSchema),

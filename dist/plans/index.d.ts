@@ -105,20 +105,12 @@ export interface UsagePool {
     limit: number;
     used: number;
     purchased?: number;
+    /** Lucide icon name rendered before the pool label */
+    icon?: string;
+    /** Unit suffix — consumers render "{used} / {limit} {countLabel}" (e.g. "days", "used") */
+    countLabel?: string;
     /** Per-pool action — e.g. "Book 1:1 Session" on the sessions pool. Persists across plan states (add-on credits don't expire). */
     cta?: PlanAction;
-}
-export interface ProgressBar {
-    /** Lucide icon name shown beside the label (e.g. "clock") */
-    icon: string;
-    /** Bar label (e.g. "Trial days") */
-    label: string;
-    /** Current value — the first number shown (e.g. days remaining) */
-    value: number;
-    /** Maximum value — the second number shown (e.g. total trial days) */
-    total: number;
-    /** Unit label after the count pair (e.g. "remaining" | "used") */
-    countLabel: string;
 }
 export interface StatusInfo {
     /** Lucide icon name shown beside the description (e.g. "rotate-cw") */
@@ -168,7 +160,7 @@ export interface TrialState {
     status: "TRIAL";
     badge: string;
     badgeIcon?: string;
-    progress: ProgressBar;
+    pools: UsagePool[];
     deprovisionAt?: string;
     statusInfo?: StatusInfo;
     actions: PlanAction[];
@@ -178,7 +170,7 @@ export interface ExpiredState {
     status: "EXPIRED";
     badge: string;
     badgeIcon?: string;
-    progress: ProgressBar;
+    pools: UsagePool[];
     deprovisionAt?: string;
     statusInfo?: StatusInfo;
     actions: PlanAction[];
