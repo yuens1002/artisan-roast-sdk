@@ -11,6 +11,13 @@ export const PlanActionSchema = z.object({
   modalSlug: z.string().optional(),
   disabled: z.boolean().optional(),
   disabledReason: z.string().optional(),
+}).superRefine((action, ctx) => {
+  if (action.url && action.variant !== "ghost" && !action.iconAfter) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: `Action "${action.slug}" has url but is missing iconAfter (non-ghost url actions must declare an icon, typically "external-link")`,
+    });
+  }
 });
 
 export const UsagePoolSchema = z.object({
