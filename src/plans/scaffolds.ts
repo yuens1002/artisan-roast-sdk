@@ -94,7 +94,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
         {
           slug: "trial-days",
           icon: "clock",
-          label: "Trial remaining",
+          label: "Trial days",
           countLabel: "days",
           used: 4,
           limit: 14,
@@ -134,7 +134,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
         {
           slug: "trial-days",
           icon: "clock",
-          label: "Trial remaining",
+          label: "Trial days",
           countLabel: "days",
           used: 5,
           limit: 30,
@@ -167,7 +167,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
           {
             slug: "trial-days",
             icon: "clock",
-            label: "Trial remaining",
+            label: "Trial days",
             countLabel: "days",
             used: 14,
             limit: 14,

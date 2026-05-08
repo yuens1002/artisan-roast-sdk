@@ -80,7 +80,7 @@ exports.SCENARIOS = {
                 {
                     slug: "trial-days",
                     icon: "clock",
-                    label: "Trial remaining",
+                    label: "Trial days",
                     countLabel: "days",
                     used: 4,
                     limit: 14,
@@ -119,7 +119,7 @@ exports.SCENARIOS = {
                 {
                     slug: "trial-days",
                     icon: "clock",
-                    label: "Trial remaining",
+                    label: "Trial days",
                     countLabel: "days",
                     used: 5,
                     limit: 30,
@@ -151,7 +151,7 @@ exports.SCENARIOS = {
                     {
                         slug: "trial-days",
                         icon: "clock",
-                        label: "Trial remaining",
+                        label: "Trial days",
                         countLabel: "days",
                         used: 14,
                         limit: 14,
