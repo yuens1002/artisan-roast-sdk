@@ -125,7 +125,7 @@ export interface UsagePool {
   /** Lucide icon name rendered before the pool label */
   icon?: string;
   /** Unit suffix — consumers render "{used} / {limit} {countLabel}" (e.g. "days", "used") */
-  countLabel?: string;
+  countLabel: string;
   /** Per-pool action — e.g. "Book 1:1 Session" on the sessions pool. Persists across plan states (add-on credits don't expire). */
   cta?: PlanAction;
 }

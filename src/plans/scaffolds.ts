@@ -71,6 +71,7 @@ const houseBlendBenefits = {
   ],
 };
 
+
 export const SCENARIOS: Record<string, HydratedPlan> = {
   TRIAL_ACTIVE_NO_CARD: {
     slug: "house-blend-trial",
@@ -219,7 +220,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
         descIcon: "rotate-cw",
         descText: `Renews on ${renewalDateStr(30)}.`,
       },
-      pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 1 }],
+      pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 1, icon: "ticket", countLabel: "used" }],
       actions: [
         {
           slug: "manage-billing",
@@ -254,7 +255,7 @@ export const SCENARIOS: Record<string, HydratedPlan> = {
         descIcon: "rotate-cw",
         descText: `Renews on ${renewalDateStr(30)}.`,
       },
-      pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 0 }],
+      pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 0, icon: "ticket", countLabel: "used" }],
       actions: [
         {
           slug: "manage-billing",

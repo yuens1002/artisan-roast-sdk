@@ -1,1 +1,1 @@
-{"version":3,"file":"scaffolds.d.ts","sourceRoot":"","sources":["../../src/plans/scaffolds.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAuB,YAAY,EAAE,MAAM,YAAY,CAAC;AAyEpE,eAAO,MAAM,SAAS,EAAE,MAAM,CAAC,MAAM,EAAE,YAAY,CAuhBlD,CAAC;AAEF,eAAO,MAAM,aAAa,UAAyB,CAAC"}
+{"version":3,"file":"scaffolds.d.ts","sourceRoot":"","sources":["../../src/plans/scaffolds.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAuB,YAAY,EAAE,MAAM,YAAY,CAAC;AA0EpE,eAAO,MAAM,SAAS,EAAE,MAAM,CAAC,MAAM,EAAE,YAAY,CA8hBlD,CAAC;AAEF,eAAO,MAAM,aAAa,UAAyB,CAAC"}

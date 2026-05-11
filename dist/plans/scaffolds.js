@@ -92,6 +92,7 @@ exports.SCENARIOS = {
                     label: "Add Billing",
                     url: "https://buy.stripe.com/test_extend",
                     variant: "primary",
+                    iconAfter: "external-link",
                 },
                 { slug: "cancel", label: "Cancel Trial", variant: "ghost", modalSlug: "cancel-trial" },
             ],
@@ -168,6 +169,7 @@ exports.SCENARIOS = {
                         label: "Extend Trial",
                         url: "https://buy.stripe.com/PLACEHOLDER_EXTEND_TRIAL",
                         variant: "primary",
+                        iconAfter: "external-link",
                     },
                     {
                         slug: "end-trial",
@@ -200,7 +202,7 @@ exports.SCENARIOS = {
                 descIcon: "rotate-cw",
                 descText: `Renews on ${renewalDateStr(30)}.`,
             },
-            pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 1 }],
+            pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 1, icon: "ticket", countLabel: "used" }],
             actions: [
                 {
                     slug: "manage-billing",
@@ -234,7 +236,7 @@ exports.SCENARIOS = {
                 descIcon: "rotate-cw",
                 descText: `Renews on ${renewalDateStr(30)}.`,
             },
-            pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 0 }],
+            pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 0, icon: "ticket", countLabel: "used" }],
             actions: [
                 {
                     slug: "manage-billing",
@@ -388,6 +390,7 @@ exports.SCENARIOS = {
                         label: "Submit Ticket",
                         url: "https://artisanroast.app/support/ticket",
                         variant: "primary",
+                        iconAfter: "external-link",
                     },
                 },
                 {
@@ -402,6 +405,7 @@ exports.SCENARIOS = {
                         label: "Book Session",
                         url: "https://calendly.com/artisanroast/session",
                         variant: "secondary",
+                        iconAfter: "external-link",
                     },
                 },
             ],
@@ -513,6 +517,7 @@ exports.SCENARIOS = {
                         label: "Submit Ticket",
                         url: "https://artisanroast.app/support/ticket",
                         variant: "primary",
+                        iconAfter: "external-link",
                     },
                 },
                 {
@@ -528,6 +533,7 @@ exports.SCENARIOS = {
                         label: "Book Session",
                         url: "https://calendly.com/artisanroast/session",
                         variant: "secondary",
+                        iconAfter: "external-link",
                     },
                 },
             ],
@@ -578,6 +584,7 @@ exports.SCENARIOS = {
                     label: "Renew",
                     url: "https://buy.stripe.com/test_subscribe",
                     variant: "primary",
+                    iconAfter: "external-link",
                 },
             ],
         },

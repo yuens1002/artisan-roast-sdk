@@ -1,5 +1,5 @@
 import { z } from "zod";
-export declare const PlanActionSchema: z.ZodObject<{
+export declare const PlanActionSchema: z.ZodEffects<z.ZodObject<{
     slug: z.ZodString;
     label: z.ZodString;
     url: z.ZodOptional<z.ZodString>;
@@ -15,9 +15,9 @@ export declare const PlanActionSchema: z.ZodObject<{
     label: string;
     url?: string | undefined;
     variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+    iconAfter?: string | undefined;
     endpoint?: string | undefined;
     iconBefore?: string | undefined;
-    iconAfter?: string | undefined;
     modalSlug?: string | undefined;
     disabled?: boolean | undefined;
     disabledReason?: string | undefined;
@@ -26,9 +26,31 @@ export declare const PlanActionSchema: z.ZodObject<{
     label: string;
     url?: string | undefined;
     variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+    iconAfter?: string | undefined;
     endpoint?: string | undefined;
     iconBefore?: string | undefined;
+    modalSlug?: string | undefined;
+    disabled?: boolean | undefined;
+    disabledReason?: string | undefined;
+}>, {
+    slug: string;
+    label: string;
+    url?: string | undefined;
+    variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
     iconAfter?: string | undefined;
+    endpoint?: string | undefined;
+    iconBefore?: string | undefined;
+    modalSlug?: string | undefined;
+    disabled?: boolean | undefined;
+    disabledReason?: string | undefined;
+}, {
+    slug: string;
+    label: string;
+    url?: string | undefined;
+    variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+    iconAfter?: string | undefined;
+    endpoint?: string | undefined;
+    iconBefore?: string | undefined;
     modalSlug?: string | undefined;
     disabled?: boolean | undefined;
     disabledReason?: string | undefined;
@@ -41,7 +63,7 @@ export declare const UsagePoolSchema: z.ZodObject<{
     purchased: z.ZodOptional<z.ZodNumber>;
     icon: z.ZodOptional<z.ZodString>;
     countLabel: z.ZodOptional<z.ZodString>;
-    cta: z.ZodOptional<z.ZodObject<{
+    cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -57,9 +79,9 @@ export declare const UsagePoolSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -68,9 +90,31 @@ export declare const UsagePoolSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -88,9 +132,9 @@ export declare const UsagePoolSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -108,9 +152,9 @@ export declare const UsagePoolSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -128,7 +172,7 @@ export declare const StatusInfoSchema: z.ZodObject<{
 }>;
 export declare const NoneStateSchema: z.ZodObject<{
     status: z.ZodLiteral<"NONE">;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -144,9 +188,9 @@ export declare const NoneStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -155,9 +199,31 @@ export declare const NoneStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -169,9 +235,9 @@ export declare const NoneStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -183,9 +249,9 @@ export declare const NoneStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -213,7 +279,7 @@ export declare const ActiveStateSchema: z.ZodObject<{
         purchased: z.ZodOptional<z.ZodNumber>;
         icon: z.ZodOptional<z.ZodString>;
         countLabel: z.ZodOptional<z.ZodString>;
-        cta: z.ZodOptional<z.ZodObject<{
+        cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -229,9 +295,9 @@ export declare const ActiveStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -240,9 +306,31 @@ export declare const ActiveStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -260,9 +348,9 @@ export declare const ActiveStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -280,15 +368,15 @@ export declare const ActiveStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
         } | undefined;
     }>, "many">;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -304,9 +392,9 @@ export declare const ActiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -315,9 +403,31 @@ export declare const ActiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -337,9 +447,9 @@ export declare const ActiveStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -351,9 +461,9 @@ export declare const ActiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -378,9 +488,9 @@ export declare const ActiveStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -392,9 +502,9 @@ export declare const ActiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -417,7 +527,7 @@ export declare const TrialStateSchema: z.ZodObject<{
         purchased: z.ZodOptional<z.ZodNumber>;
         icon: z.ZodOptional<z.ZodString>;
         countLabel: z.ZodOptional<z.ZodString>;
-        cta: z.ZodOptional<z.ZodObject<{
+        cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -433,9 +543,9 @@ export declare const TrialStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -444,9 +554,31 @@ export declare const TrialStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -464,9 +596,9 @@ export declare const TrialStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -484,9 +616,9 @@ export declare const TrialStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -503,7 +635,7 @@ export declare const TrialStateSchema: z.ZodObject<{
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -519,9 +651,9 @@ export declare const TrialStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -530,9 +662,31 @@ export declare const TrialStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -552,9 +706,9 @@ export declare const TrialStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -566,9 +720,9 @@ export declare const TrialStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -594,9 +748,9 @@ export declare const TrialStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -608,9 +762,9 @@ export declare const TrialStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -634,7 +788,7 @@ export declare const ExpiredStateSchema: z.ZodObject<{
         purchased: z.ZodOptional<z.ZodNumber>;
         icon: z.ZodOptional<z.ZodString>;
         countLabel: z.ZodOptional<z.ZodString>;
-        cta: z.ZodOptional<z.ZodObject<{
+        cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -650,9 +804,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -661,9 +815,31 @@ export declare const ExpiredStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -681,9 +857,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -701,9 +877,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -720,7 +896,7 @@ export declare const ExpiredStateSchema: z.ZodObject<{
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -736,9 +912,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -747,9 +923,31 @@ export declare const ExpiredStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -769,9 +967,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -783,9 +981,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -811,9 +1009,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -825,9 +1023,9 @@ export declare const ExpiredStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -855,7 +1053,7 @@ export declare const CancelledStateSchema: z.ZodObject<{
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -871,9 +1069,9 @@ export declare const CancelledStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -882,9 +1080,31 @@ export declare const CancelledStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -898,9 +1118,9 @@ export declare const CancelledStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -920,9 +1140,9 @@ export declare const CancelledStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -949,7 +1169,7 @@ export declare const InactiveStateSchema: z.ZodObject<{
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -965,9 +1185,9 @@ export declare const InactiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -976,9 +1196,31 @@ export declare const InactiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -992,9 +1234,9 @@ export declare const InactiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1013,9 +1255,9 @@ export declare const InactiveStateSchema: z.ZodObject<{
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1028,7 +1270,7 @@ export declare const InactiveStateSchema: z.ZodObject<{
 }>;
 export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodObject<{
     status: z.ZodLiteral<"NONE">;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -1044,9 +1286,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1055,9 +1297,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1069,9 +1333,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1083,9 +1347,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1112,7 +1376,7 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         purchased: z.ZodOptional<z.ZodNumber>;
         icon: z.ZodOptional<z.ZodString>;
         countLabel: z.ZodOptional<z.ZodString>;
-        cta: z.ZodOptional<z.ZodObject<{
+        cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -1128,9 +1392,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1139,9 +1403,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1159,9 +1445,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1179,15 +1465,15 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
         } | undefined;
     }>, "many">;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -1203,9 +1489,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1214,9 +1500,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1236,9 +1544,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1250,9 +1558,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1277,9 +1585,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1291,9 +1599,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1315,7 +1623,7 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         purchased: z.ZodOptional<z.ZodNumber>;
         icon: z.ZodOptional<z.ZodString>;
         countLabel: z.ZodOptional<z.ZodString>;
-        cta: z.ZodOptional<z.ZodObject<{
+        cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -1331,9 +1639,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1342,9 +1650,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1362,9 +1692,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1382,9 +1712,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1401,7 +1731,7 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -1417,9 +1747,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1428,9 +1758,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1450,9 +1802,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1464,9 +1816,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1492,9 +1844,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1506,9 +1858,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1531,7 +1883,7 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         purchased: z.ZodOptional<z.ZodNumber>;
         icon: z.ZodOptional<z.ZodString>;
         countLabel: z.ZodOptional<z.ZodString>;
-        cta: z.ZodOptional<z.ZodObject<{
+        cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -1547,9 +1899,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1558,9 +1910,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1578,9 +1952,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1598,9 +1972,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1617,7 +1991,7 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -1633,9 +2007,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1644,9 +2018,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1666,9 +2062,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1680,9 +2076,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1708,9 +2104,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -1722,9 +2118,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1751,7 +2147,7 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -1767,9 +2163,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1778,9 +2174,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1794,9 +2212,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1816,9 +2234,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1844,7 +2262,7 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         descIcon?: string | undefined;
         descText?: string | undefined;
     }>>;
-    actions: z.ZodArray<z.ZodObject<{
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
         slug: z.ZodString;
         label: z.ZodString;
         url: z.ZodOptional<z.ZodString>;
@@ -1860,9 +2278,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1871,9 +2289,31 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
         iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1887,9 +2327,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -1908,9 +2348,9 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         label: string;
         url?: string | undefined;
         variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
         endpoint?: string | undefined;
         iconBefore?: string | undefined;
-        iconAfter?: string | undefined;
         modalSlug?: string | undefined;
         disabled?: boolean | undefined;
         disabledReason?: string | undefined;
@@ -2564,7 +3004,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
 } & {
     state: z.ZodDiscriminatedUnion<"status", [z.ZodObject<{
         status: z.ZodLiteral<"NONE">;
-        actions: z.ZodArray<z.ZodObject<{
+        actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -2580,9 +3020,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2591,9 +3031,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2605,9 +3067,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2619,9 +3081,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2648,7 +3110,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             purchased: z.ZodOptional<z.ZodNumber>;
             icon: z.ZodOptional<z.ZodString>;
             countLabel: z.ZodOptional<z.ZodString>;
-            cta: z.ZodOptional<z.ZodObject<{
+            cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
                 slug: z.ZodString;
                 label: z.ZodString;
                 url: z.ZodOptional<z.ZodString>;
@@ -2664,9 +3126,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2675,9 +3137,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }>, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
                 iconAfter?: string | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2695,9 +3179,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2715,15 +3199,15 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
             } | undefined;
         }>, "many">;
-        actions: z.ZodArray<z.ZodObject<{
+        actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -2739,9 +3223,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2750,9 +3234,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2772,9 +3278,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2786,9 +3292,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2813,9 +3319,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2827,9 +3333,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2851,7 +3357,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             purchased: z.ZodOptional<z.ZodNumber>;
             icon: z.ZodOptional<z.ZodString>;
             countLabel: z.ZodOptional<z.ZodString>;
-            cta: z.ZodOptional<z.ZodObject<{
+            cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
                 slug: z.ZodString;
                 label: z.ZodString;
                 url: z.ZodOptional<z.ZodString>;
@@ -2867,9 +3373,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2878,9 +3384,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }>, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
                 iconAfter?: string | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2898,9 +3426,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2918,9 +3446,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -2937,7 +3465,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         }>>;
-        actions: z.ZodArray<z.ZodObject<{
+        actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -2953,9 +3481,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2964,9 +3492,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -2986,9 +3536,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3000,9 +3550,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3028,9 +3578,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3042,9 +3592,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3067,7 +3617,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             purchased: z.ZodOptional<z.ZodNumber>;
             icon: z.ZodOptional<z.ZodString>;
             countLabel: z.ZodOptional<z.ZodString>;
-            cta: z.ZodOptional<z.ZodObject<{
+            cta: z.ZodOptional<z.ZodEffects<z.ZodObject<{
                 slug: z.ZodString;
                 label: z.ZodString;
                 url: z.ZodOptional<z.ZodString>;
@@ -3083,9 +3633,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3094,9 +3644,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }>, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
                 iconAfter?: string | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
+                modalSlug?: string | undefined;
+                disabled?: boolean | undefined;
+                disabledReason?: string | undefined;
+            }, {
+                slug: string;
+                label: string;
+                url?: string | undefined;
+                variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
+                endpoint?: string | undefined;
+                iconBefore?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3114,9 +3686,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3134,9 +3706,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3153,7 +3725,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         }>>;
-        actions: z.ZodArray<z.ZodObject<{
+        actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -3169,9 +3741,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3180,9 +3752,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3202,9 +3796,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3216,9 +3810,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3244,9 +3838,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3258,9 +3852,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3287,7 +3881,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         }>>;
-        actions: z.ZodArray<z.ZodObject<{
+        actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -3303,9 +3897,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3314,9 +3908,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3330,9 +3946,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3352,9 +3968,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3380,7 +3996,7 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         }>>;
-        actions: z.ZodArray<z.ZodObject<{
+        actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
             slug: z.ZodString;
             label: z.ZodString;
             url: z.ZodOptional<z.ZodString>;
@@ -3396,9 +4012,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3407,9 +4023,31 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
             iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3423,9 +4061,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3444,9 +4082,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3497,9 +4135,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3519,9 +4157,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3533,9 +4171,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3560,9 +4198,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3574,9 +4212,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3602,9 +4240,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3616,9 +4254,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3638,9 +4276,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3660,9 +4298,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3734,9 +4372,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3756,9 +4394,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3770,9 +4408,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3797,9 +4435,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3811,9 +4449,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3839,9 +4477,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -3853,9 +4491,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3875,9 +4513,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3897,9 +4535,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3971,9 +4609,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -3993,9 +4631,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -4007,9 +4645,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4034,9 +4672,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -4048,9 +4686,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4076,9 +4714,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -4090,9 +4728,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4112,9 +4750,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4134,9 +4772,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4208,9 +4846,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4230,9 +4868,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -4244,9 +4882,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4271,9 +4909,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -4285,9 +4923,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4313,9 +4951,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
                 label: string;
                 url?: string | undefined;
                 variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+                iconAfter?: string | undefined;
                 endpoint?: string | undefined;
                 iconBefore?: string | undefined;
-                iconAfter?: string | undefined;
                 modalSlug?: string | undefined;
                 disabled?: boolean | undefined;
                 disabledReason?: string | undefined;
@@ -4327,9 +4965,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4349,9 +4987,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;
@@ -4371,9 +5009,9 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             label: string;
             url?: string | undefined;
             variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
             endpoint?: string | undefined;
             iconBefore?: string | undefined;
-            iconAfter?: string | undefined;
             modalSlug?: string | undefined;
             disabled?: boolean | undefined;
             disabledReason?: string | undefined;

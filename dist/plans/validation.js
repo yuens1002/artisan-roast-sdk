@@ -13,6 +13,13 @@ exports.PlanActionSchema = zod_1.z.object({
     modalSlug: zod_1.z.string().optional(),
     disabled: zod_1.z.boolean().optional(),
     disabledReason: zod_1.z.string().optional(),
+}).superRefine((action, ctx) => {
+    if (action.url && action.variant !== "ghost" && !action.iconAfter) {
+        ctx.addIssue({
+            code: zod_1.z.ZodIssueCode.custom,
+            message: `Action "${action.slug}" has url but is missing iconAfter (non-ghost url actions must declare an icon, typically "external-link")`,
+        });
+    }
 });
 exports.UsagePoolSchema = zod_1.z.object({
     slug: zod_1.z.string(),
