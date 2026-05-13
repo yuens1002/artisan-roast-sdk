@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HydratedPlanSchema = exports.PlanSchema = exports.ConfirmActionConfigSchema = exports.PlanDetailsSchema = exports.BenefitsBlockSchema = exports.PlanStateSchema = exports.InactiveStateSchema = exports.CancelledStateSchema = exports.ExpiredStateSchema = exports.TrialStateSchema = exports.ActiveStateSchema = exports.NoneStateSchema = exports.StatusInfoSchema = exports.UsagePoolSchema = exports.PlanActionSchema = void 0;
+exports.HydratedPlanSchema = exports.PlanSchema = exports.ActionModalSchema = exports.PaymentConfirmModalSchema = exports.FeedbackFormModalSchema = exports.PlanDetailsSchema = exports.BenefitsBlockSchema = exports.PlanStateSchema = exports.PendingStateSchema = exports.InactiveStateSchema = exports.CancelledStateSchema = exports.ExpiredStateSchema = exports.TrialStateSchema = exports.ActiveStateSchema = exports.NoneStateSchema = exports.StatusInfoSchema = exports.UsagePoolSchema = exports.PlanActionSchema = void 0;
 const zod_1 = require("zod");
 exports.PlanActionSchema = zod_1.z.object({
     slug: zod_1.z.string(),
@@ -82,6 +82,15 @@ exports.InactiveStateSchema = zod_1.z.object({
     statusInfo: exports.StatusInfoSchema.optional(),
     actions: zod_1.z.array(exports.PlanActionSchema),
 });
+// PENDING is NONE-shaped: statusInfo + actions, no badge, no pools. `.strict()`
+// makes a stray `pools` (or `badge`, etc.) an error rather than silently stripping it.
+exports.PendingStateSchema = zod_1.z
+    .object({
+    status: zod_1.z.literal("PENDING"),
+    statusInfo: exports.StatusInfoSchema.optional(),
+    actions: zod_1.z.array(exports.PlanActionSchema),
+})
+    .strict();
 exports.PlanStateSchema = zod_1.z.discriminatedUnion("status", [
     exports.NoneStateSchema,
     exports.ActiveStateSchema,
@@ -89,6 +98,7 @@ exports.PlanStateSchema = zod_1.z.discriminatedUnion("status", [
     exports.ExpiredStateSchema,
     exports.CancelledStateSchema,
     exports.InactiveStateSchema,
+    exports.PendingStateSchema,
 ]);
 exports.BenefitsBlockSchema = zod_1.z.object({
     activeHeader: zod_1.z.string().optional(),
@@ -118,15 +128,18 @@ exports.PlanDetailsSchema = zod_1.z.object({
     benefits: exports.BenefitsBlockSchema.optional(),
     excludes: zod_1.z.array(zod_1.z.string()).optional(),
 });
-exports.ConfirmActionConfigSchema = zod_1.z.object({
+exports.FeedbackFormModalSchema = zod_1.z.object({
+    type: zod_1.z.literal("feedbackForm"),
     slug: zod_1.z.string(),
     heading: zod_1.z.string(),
     description: zod_1.z.string(),
     reasonsLabel: zod_1.z.string(),
-    reasons: zod_1.z.array(zod_1.z.object({
+    reasons: zod_1.z
+        .array(zod_1.z.object({
         value: zod_1.z.string(),
         label: zod_1.z.string(),
-    })),
+    }))
+        .min(1),
     keepLabel: zod_1.z.string(),
     confirmLabel: zod_1.z.string(),
     confirmIcon: zod_1.z.string().optional(),
@@ -138,6 +151,18 @@ exports.ConfirmActionConfigSchema = zod_1.z.object({
     })
         .optional(),
 });
+exports.PaymentConfirmModalSchema = zod_1.z.object({
+    type: zod_1.z.literal("paymentConfirm"),
+    slug: zod_1.z.string(),
+    heading: zod_1.z.string(),
+    description: zod_1.z.string().optional(),
+    confirmLabel: zod_1.z.string(),
+    processingMessages: zod_1.z.array(zod_1.z.string()).min(1),
+});
+exports.ActionModalSchema = zod_1.z.discriminatedUnion("type", [
+    exports.FeedbackFormModalSchema,
+    exports.PaymentConfirmModalSchema,
+]);
 exports.PlanSchema = zod_1.z.object({
     slug: zod_1.z.string(),
     name: zod_1.z.string(),
@@ -152,14 +177,17 @@ exports.PlanSchema = zod_1.z.object({
     salePrice: zod_1.z.number().optional(),
     saleEndsAt: zod_1.z.string().optional(),
     saleLabel: zod_1.z.string().optional(),
-    actionModals: zod_1.z.array(exports.ConfirmActionConfigSchema).optional(),
+    actionModals: zod_1.z.array(exports.ActionModalSchema).optional(),
 });
 exports.HydratedPlanSchema = exports.PlanSchema.extend({
     state: exports.PlanStateSchema,
 }).superRefine((data, ctx) => {
     const modalSlugs = new Set((data.actionModals ?? []).map((m) => m.slug));
-    const actions = "actions" in data.state ? data.state.actions : [];
-    for (const action of actions) {
+    const stateActions = "actions" in data.state ? data.state.actions : [];
+    const poolCtas = "pools" in data.state
+        ? data.state.pools.flatMap((p) => (p.cta ? [p.cta] : []))
+        : [];
+    for (const action of [...stateActions, ...poolCtas]) {
         if (action.modalSlug && !modalSlugs.has(action.modalSlug)) {
             ctx.addIssue({
                 code: zod_1.z.ZodIssueCode.custom,

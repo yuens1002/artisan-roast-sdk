@@ -3,45 +3,60 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SDK_VERSION = void 0;
+exports.createMcpServer = createMcpServer;
+exports.createHttpServer = createHttpServer;
 const node_http_1 = __importDefault(require("node:http"));
+const node_fs_1 = require("node:fs");
+const node_path_1 = require("node:path");
 const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
 const streamableHttp_js_1 = require("@modelcontextprotocol/sdk/server/streamableHttp.js");
 const plans_js_1 = require("./tools/plans.js");
 const plans_js_2 = require("./resources/plans.js");
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3100;
+// Single source of truth for the SDK version: package.json, read module-relative
+// at runtime (dist/mcp/server.js → ../../package.json). CJS/ESM-agnostic, no
+// tsconfig change, no JSON-import assertion sensitivity.
+exports.SDK_VERSION = JSON.parse((0, node_fs_1.readFileSync)((0, node_path_1.join)(__dirname, "..", "..", "package.json"), "utf8")).version;
 function createMcpServer() {
     const server = new mcp_js_1.McpServer({
         name: "artisan-roast-sdk",
-        version: "0.2.0",
+        version: exports.SDK_VERSION,
     });
     (0, plans_js_1.registerPlanTools)(server);
     (0, plans_js_2.registerPlanResources)(server);
     return server;
 }
-const httpServer = node_http_1.default.createServer(async (req, res) => {
-    if (req.url === "/health" || req.url === "/") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ status: "ok", version: "0.2.0" }));
-        return;
-    }
-    if (!req.url?.startsWith("/mcp")) {
-        res.writeHead(404, { "Content-Type": "text/plain" });
-        res.end("Not Found");
-        return;
-    }
-    const transport = new streamableHttp_js_1.StreamableHTTPServerTransport({
-        sessionIdGenerator: undefined,
+function createHttpServer() {
+    return node_http_1.default.createServer(async (req, res) => {
+        if (req.url === "/health" || req.url === "/") {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ status: "ok", version: exports.SDK_VERSION }));
+            return;
+        }
+        if (!req.url?.startsWith("/mcp")) {
+            res.writeHead(404, { "Content-Type": "text/plain" });
+            res.end("Not Found");
+            return;
+        }
+        const transport = new streamableHttp_js_1.StreamableHTTPServerTransport({
+            sessionIdGenerator: undefined,
+        });
+        const mcpServer = createMcpServer();
+        try {
+            await mcpServer.connect(transport);
+            await transport.handleRequest(req, res);
+        }
+        finally {
+            await mcpServer.close();
+        }
     });
-    const mcpServer = createMcpServer();
-    try {
-        await mcpServer.connect(transport);
-        await transport.handleRequest(req, res);
-    }
-    finally {
-        await mcpServer.close();
-    }
-});
-httpServer.listen(PORT, () => {
-    console.log(`artisan-roast-sdk MCP server listening on port ${PORT}`);
-});
+}
+// Start the server only when run as the entry point — importing this module
+// (e.g. from a test) must not bind a port.
+if (require.main === module) {
+    createHttpServer().listen(PORT, () => {
+        console.log(`artisan-roast-sdk MCP server listening on port ${PORT}`);
+    });
+}
 //# sourceMappingURL=server.js.map

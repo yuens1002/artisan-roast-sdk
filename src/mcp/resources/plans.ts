@@ -26,7 +26,8 @@ Recommended poll cadence: 60 seconds (\`revalidate: 60\` on the server component
 
 ## Dispatch pattern
 
-Switch on \`plan.state.status\` to render the correct card layout:
+Switch on \`plan.state.status\` to render the correct card layout. The switch
+must be exhaustive — every variant below has a case:
 
 \`\`\`typescript
 switch (plan.state.status) {
@@ -37,16 +38,21 @@ switch (plan.state.status) {
     // Active subscription — show badge, statusInfo, pools (UsageBar), manage CTA
     break;
   case "TRIAL":
-    // Active trial — show badge, progress bar (state.progress), statusInfo, billing CTA
+    // Active trial — show badge, pools (trial-days UsageBar), statusInfo, billing CTA
     break;
   case "EXPIRED":
-    // Grace period — show badge, bar at 0, statusInfo (deprovision date), subscribe CTA
+    // Grace period — show badge, pools at full, statusInfo (deprovision date), subscribe CTA
     break;
   case "CANCELLED":
     // Cancelled — show countdown to deprovision, statusInfo, reactivate CTA
     break;
   case "INACTIVE":
     // Lapsed — show deactivatedAt, statusInfo, inactiveItems benefits, renew CTA
+    break;
+  case "PENDING":
+    // Provisioning after a paid conversion — NONE-shaped card: name, statusInfo
+    // copy, "Check Status" primary CTA, spinner during the poll. Resolver returns
+    // PENDING again while provisioning, then ACTIVE once the store is live.
     break;
 }
 \`\`\`
@@ -79,15 +85,19 @@ const header = state.status === "INACTIVE"
 
 Item icons (green check) are hardcoded in the component — not a payload field.
 
-## Progress bar
+## Usage pools
 
-\`TrialState\` and \`ExpiredState\` carry a \`progress: ProgressBar\` field:
+\`ActiveState\`, \`TrialState\`, and \`ExpiredState\` carry \`pools: UsagePool[]\`.
+A trial's remaining time is just another pool (\`slug: "trial-days"\`):
 
 \`\`\`typescript
-// ProgressBar shape
-{ icon: "clock", label: "Trial days", value: 10, total: 14, countLabel: "remaining" }
-// Render as: <Icon name={progress.icon} /> {progress.label}  {progress.value} / {progress.total} {progress.countLabel}
+// UsagePool shape
+{ slug: "trial-days", icon: "clock", label: "Trial days", limit: 14, used: 10, countLabel: "days" }
+// Render as: <Icon name={pool.icon} /> {pool.label}  {pool.used} / {pool.limit} {pool.countLabel}
 \`\`\`
+
+A pool may carry an optional \`cta: PlanAction\` (e.g. "Book Session" on a sessions pool).
+\`PENDING\` has no pools — provisioning has no usage to display yet.
 
 ## Status info
 
@@ -100,7 +110,7 @@ if (state.statusInfo?.descText) {
 }
 \`\`\`
 
-Present on: ACTIVE, TRIAL, EXPIRED, CANCELLED, INACTIVE.
+Present on: ACTIVE, TRIAL, EXPIRED, CANCELLED, INACTIVE, PENDING.
 
 ## Actions
 
@@ -110,14 +120,30 @@ Each \`PlanState\` carries an \`actions\` array. Render them as buttons:
 - \`iconBefore\` / \`iconAfter\`: Lucide icon rendered before or after the label
 - Respect \`disabled\` and \`disabledReason\` — render a tooltip when disabled
 
-## Cancel dialog
+## Action modals
 
 If an action has a \`modalSlug\`, look up the matching entry in \`plan.actionModals\`
-by slug and render a reason-capture dialog before proceeding. All UI copy and modal
-presentation — \`heading\`, \`description\`, \`reasonsLabel\`, \`reasons\`,
-\`keepLabel\`, \`confirmLabel\`, \`confirmIcon\`, and optional \`other\` textarea
-config (\`label\`, \`placeholder\`, \`maxLength\`) — comes from the modal config.
-No hardcoded copy in the store.
+by slug and open it before proceeding. \`actionModals\` is a discriminated union on
+\`type\` — branch on it:
+
+\`\`\`typescript
+const modal = plan.actionModals?.find((m) => m.slug === action.modalSlug);
+switch (modal?.type) {
+  case "feedbackForm":
+    // "Tell us why" dialog — reasons dropdown + keep/confirm.
+    // Copy: heading, description, reasonsLabel, reasons[], keepLabel, confirmLabel,
+    // confirmIcon?, other? ({ label, placeholder, maxLength }). On confirm, run the action.
+    break;
+  case "paymentConfirm":
+    // Payment-loop modal — confirm the charge, then a non-dismissable spinner +
+    // processingMessages cycling while Stripe processes; closes when the charge
+    // resolves (the plan then flips to PENDING).
+    // Copy: heading, description?, confirmLabel, processingMessages[].
+    break;
+}
+\`\`\`
+
+All UI copy comes from the modal config — no hardcoded strings in the store.
 `;
 
 export function registerPlanResources(server: McpServer): void {
@@ -150,7 +176,7 @@ export function registerPlanResources(server: McpServer): void {
     },
     async () => {
       const spec = readFileSync(
-        join(ROOT, "docs", "provider-spec.md"),
+        join(ROOT, "spec", "provider-plan.spec.md"),
         "utf-8"
       );
       return {

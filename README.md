@@ -33,13 +33,13 @@ function resolvePlans(licenseKey: string): ResolvedPlansResponse {
         currency: "USD",
         interval: "month",
         features: ["my-feature"],
-        details: { benefits: ["Great feature included"] },
+        details: { benefits: { activeItems: ["Great feature included"] } },
         highlight: false,
         visibility: "self-hosted",
         state: {
-          status: "none",
+          status: "NONE",
           actions: [
-            { slug: "subscribe", label: "Subscribe", url: "https://..." },
+            { slug: "subscribe", label: "Subscribe", url: "https://...", variant: "primary", iconAfter: "external-link" },
           ],
         },
       },
@@ -57,7 +57,7 @@ Two endpoints:
 | `GET /api/plans` | None | Static plan definitions |
 | `GET /api/plans/resolved` | Bearer license key | Plans with computed per-instance state |
 
-Read the [Provider Spec](docs/provider-spec.md) for the full contract — all state variants, action slugs the store handles, and example payloads.
+Read the [Provider Spec](spec/provider-plan.spec.md) for the full contract — all state variants (`NONE`, `ACTIVE`, `TRIAL`, `EXPIRED`, `CANCELLED`, `INACTIVE`, `PENDING`), action slugs the store handles, and example payloads.
 
 ## Packages
 

@@ -15,6 +15,7 @@ const trialCancelOther = {
 };
 const houseBlendTrialModals = [
     {
+        type: "feedbackForm",
         slug: "cancel-trial",
         heading: "Cancel your trial?",
         description: "We'd love to know why before you go.",
@@ -25,6 +26,7 @@ const houseBlendTrialModals = [
         other: trialCancelOther,
     },
     {
+        type: "feedbackForm",
         slug: "cancel-stripe",
         heading: "Cancel your trial?",
         description: "Your card is on file. Cancel to stop any future charges.",
@@ -358,6 +360,7 @@ exports.SCENARIOS = {
         saleEndsAt: "2026-06-30T23:59:59Z",
         actionModals: [
             {
+                type: "feedbackForm",
                 slug: "cancel-subscription",
                 heading: "Cancel your subscription?",
                 description: "We'd love to know why before you go.",
@@ -585,6 +588,49 @@ exports.SCENARIOS = {
                     url: "https://buy.stripe.com/test_subscribe",
                     variant: "primary",
                     iconAfter: "external-link",
+                },
+            ],
+        },
+    },
+    // Post-conversion provisioning. Any plan can land here right after a paid
+    // conversion: the payment modal (`convert-payment`) confirms the charge,
+    // the plan flips to PENDING, the store polls "Check Status" until ACTIVE.
+    PENDING: {
+        slug: "house-blend",
+        name: "House Blend",
+        description: "Fully managed hosting with custom domain and priority support.",
+        price: 7900,
+        currency: "USD",
+        interval: "month",
+        features: ["hosting", "custom-domain", "priority-support", "tickets"],
+        details: {
+            benefits: houseBlendBenefits,
+            sla: { responseTime: "48 hours" },
+        },
+        highlight: true,
+        visibility: "hosted",
+        actionModals: [
+            {
+                type: "paymentConfirm",
+                slug: "convert-payment",
+                heading: "Completing your subscription",
+                description: "You'll be charged $79.00/month. Cancel anytime.",
+                confirmLabel: "Confirm and pay",
+                processingMessages: ["Processing payment…", "Almost there…"],
+            },
+        ],
+        state: {
+            status: "PENDING",
+            statusInfo: {
+                descIcon: "loader-2",
+                descText: "Setting up your store — this can take a few minutes.",
+            },
+            actions: [
+                {
+                    slug: "check-status",
+                    label: "Check Status",
+                    endpoint: "/api/plans/status",
+                    variant: "primary",
                 },
             ],
         },

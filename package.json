@@ -29,6 +29,7 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
+    "test": "node --test",
     "start": "node dist/mcp/server.js",
     "dev": "PORT=3100 node dist/mcp/server.js"
   },

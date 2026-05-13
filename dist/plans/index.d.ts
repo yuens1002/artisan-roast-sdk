@@ -41,7 +41,14 @@ export interface PlanDetails {
     benefits?: BenefitsBlock;
     excludes?: string[];
 }
-export interface ConfirmActionConfig {
+/**
+ * "Tell us why" feedback dialog — reasons dropdown + keep/confirm.
+ * Drives the reason-capture flow for any workflow (cancel, downgrade, etc.).
+ * (Was `ConfirmActionConfig` pre-v0.5.0.)
+ */
+export interface FeedbackFormModal {
+    /** Discriminator */
+    type: "feedbackForm";
     /** Unique identifier within the plan — PlanAction.modalSlug references this */
     slug: string;
     /** Dialog heading */
@@ -69,6 +76,31 @@ export interface ConfirmActionConfig {
         maxLength: number;
     };
 }
+/**
+ * Payment-loop modal — the popup during a paid conversion. Confirm the
+ * charge, then a non-dismissable spinner + status copy while Stripe
+ * processes; closes when the charge resolves (the plan then flips to
+ * `PENDING`).
+ */
+export interface PaymentConfirmModal {
+    /** Discriminator */
+    type: "paymentConfirm";
+    /** Unique identifier within the plan — PlanAction.modalSlug references this */
+    slug: string;
+    /** Dialog heading (e.g. "Completing your subscription") */
+    heading: string;
+    /** Optional pre-confirm copy / price line shown before the customer confirms */
+    description?: string;
+    /** Confirm button label (e.g. "Confirm and pay") */
+    confirmLabel: string;
+    /**
+     * Status copy shown under the spinner while the charge is in flight.
+     * A single string, or an ordered list the store cycles through
+     * ("Processing payment…" → "Almost there…").
+     */
+    processingMessages: string[];
+}
+export type ActionModal = FeedbackFormModal | PaymentConfirmModal;
 export interface Plan {
     /** URL-safe identifier (e.g. "priority-support") */
     slug: string;
@@ -96,8 +128,8 @@ export interface Plan {
     saleEndsAt?: string;
     /** Sale badge text (e.g. "Launch Special") */
     saleLabel?: string;
-    /** Reason-capture dialog configs. PlanAction.modalSlug references entries by slug. Omit to hide all dialogs. */
-    actionModals?: ConfirmActionConfig[];
+    /** Modal configs (feedback form or payment confirm). PlanAction.modalSlug references entries by slug. Omit to hide all modals. */
+    actionModals?: ActionModal[];
 }
 export interface UsagePool {
     slug: string;
@@ -139,10 +171,27 @@ export interface PlanAction {
     /** Tooltip shown when disabled */
     disabledReason?: string;
 }
-export type PlanState = NoneState | ActiveState | TrialState | ExpiredState | CancelledState | InactiveState;
+export type PlanState = NoneState | ActiveState | TrialState | ExpiredState | CancelledState | InactiveState | PendingState;
 /** Not subscribed — show pricing and subscribe CTA */
 export interface NoneState {
     status: "NONE";
+    actions: PlanAction[];
+}
+/**
+ * Plan is provisioning after a successful paid conversion. The store renders
+ * a NONE-shaped plan card with `statusInfo` copy + a "Check Status" action +
+ * a spinner during the poll. The resolver returns `PENDING` again while
+ * provisioning, then `ACTIVE` once the store is live. May take minutes —
+ * this is NOT a frozen-modal wait; the customer can navigate away and back.
+ *
+ * Has `actions[]` (Check Status is an action). No `pools[]` — provisioning
+ * has no usage to display yet.
+ */
+export interface PendingState {
+    status: "PENDING";
+    /** Secondary status line (e.g. "Setting up your store — this can take a few minutes.") */
+    statusInfo?: StatusInfo;
+    /** Typically one endpoint-backed "Check Status" action */
     actions: PlanAction[];
 }
 /** Active subscription */

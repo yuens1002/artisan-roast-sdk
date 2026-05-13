@@ -89,6 +89,16 @@ export const InactiveStateSchema = z.object({
   actions: z.array(PlanActionSchema),
 });
 
+// PENDING is NONE-shaped: statusInfo + actions, no badge, no pools. `.strict()`
+// makes a stray `pools` (or `badge`, etc.) an error rather than silently stripping it.
+export const PendingStateSchema = z
+  .object({
+    status: z.literal("PENDING"),
+    statusInfo: StatusInfoSchema.optional(),
+    actions: z.array(PlanActionSchema),
+  })
+  .strict();
+
 export const PlanStateSchema = z.discriminatedUnion("status", [
   NoneStateSchema,
   ActiveStateSchema,
@@ -96,6 +106,7 @@ export const PlanStateSchema = z.discriminatedUnion("status", [
   ExpiredStateSchema,
   CancelledStateSchema,
   InactiveStateSchema,
+  PendingStateSchema,
 ]);
 
 export const BenefitsBlockSchema = z.object({
@@ -130,17 +141,20 @@ export const PlanDetailsSchema = z.object({
   excludes: z.array(z.string()).optional(),
 });
 
-export const ConfirmActionConfigSchema = z.object({
+export const FeedbackFormModalSchema = z.object({
+  type: z.literal("feedbackForm"),
   slug: z.string(),
   heading: z.string(),
   description: z.string(),
   reasonsLabel: z.string(),
-  reasons: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    })
-  ),
+  reasons: z
+    .array(
+      z.object({
+        value: z.string(),
+        label: z.string(),
+      })
+    )
+    .min(1),
   keepLabel: z.string(),
   confirmLabel: z.string(),
   confirmIcon: z.string().optional(),
@@ -152,6 +166,20 @@ export const ConfirmActionConfigSchema = z.object({
     })
     .optional(),
 });
+
+export const PaymentConfirmModalSchema = z.object({
+  type: z.literal("paymentConfirm"),
+  slug: z.string(),
+  heading: z.string(),
+  description: z.string().optional(),
+  confirmLabel: z.string(),
+  processingMessages: z.array(z.string()).min(1),
+});
+
+export const ActionModalSchema = z.discriminatedUnion("type", [
+  FeedbackFormModalSchema,
+  PaymentConfirmModalSchema,
+]);
 
 export const PlanSchema = z.object({
   slug: z.string(),
@@ -167,16 +195,23 @@ export const PlanSchema = z.object({
   salePrice: z.number().optional(),
   saleEndsAt: z.string().optional(),
   saleLabel: z.string().optional(),
-  actionModals: z.array(ConfirmActionConfigSchema).optional(),
+  actionModals: z.array(ActionModalSchema).optional(),
 });
 
 export const HydratedPlanSchema = PlanSchema.extend({
   state: PlanStateSchema,
 }).superRefine((data, ctx) => {
   const modalSlugs = new Set((data.actionModals ?? []).map((m) => m.slug));
-  const actions =
-    "actions" in data.state ? (data.state.actions as Array<{ slug: string; modalSlug?: string }>) : [];
-  for (const action of actions) {
+
+  type ActionLike = { slug: string; modalSlug?: string };
+  const stateActions: ActionLike[] =
+    "actions" in data.state ? (data.state.actions as ActionLike[]) : [];
+  const poolCtas: ActionLike[] =
+    "pools" in data.state
+      ? (data.state.pools as Array<{ cta?: ActionLike }>).flatMap((p) => (p.cta ? [p.cta] : []))
+      : [];
+
+  for (const action of [...stateActions, ...poolCtas]) {
     if (action.modalSlug && !modalSlugs.has(action.modalSlug)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
