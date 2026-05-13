@@ -120,6 +120,40 @@ test("a modalSlug with no matching actionModals entry is rejected", () => {
     },
   });
   assert.equal(result.success, false);
+  // The error path points at the offending action, not a generic `state.actions`.
+  const issue = result.success ? null : result.error.issues.find((i) => i.message.includes("does-not-exist"));
+  assert.deepEqual(issue?.path, ["state", "actions", 0]);
+});
+
+test("a dangling modalSlug on a pool CTA reports the pool path, not state.actions", () => {
+  const result = HydratedPlanSchema.safeParse({
+    ...baseHouseBlend,
+    actionModals: [feedbackModal],
+    state: {
+      status: "ACTIVE",
+      badge: "Active",
+      pools: [
+        {
+          slug: "tickets",
+          label: "Priority Tickets",
+          limit: 5,
+          used: 0,
+          icon: "ticket",
+          countLabel: "used",
+          cta: {
+            slug: "submit-ticket",
+            label: "Submit Ticket",
+            variant: "ghost",
+            modalSlug: "does-not-exist",
+          },
+        },
+      ],
+      actions: [],
+    },
+  });
+  assert.equal(result.success, false);
+  const issue = result.success ? null : result.error.issues.find((i) => i.message.includes("does-not-exist"));
+  assert.deepEqual(issue?.path, ["state", "pools", 0, "cta"]);
 });
 
 test("a modalSlug that resolves to an actionModals entry is accepted", () => {

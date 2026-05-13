@@ -183,16 +183,25 @@ exports.HydratedPlanSchema = exports.PlanSchema.extend({
     state: exports.PlanStateSchema,
 }).superRefine((data, ctx) => {
     const modalSlugs = new Set((data.actionModals ?? []).map((m) => m.slug));
-    const stateActions = "actions" in data.state ? data.state.actions : [];
-    const poolCtas = "pools" in data.state
-        ? data.state.pools.flatMap((p) => (p.cta ? [p.cta] : []))
-        : [];
-    for (const action of [...stateActions, ...poolCtas]) {
+    const targets = [];
+    if ("actions" in data.state) {
+        data.state.actions.forEach((action, i) => {
+            targets.push({ action, path: ["state", "actions", i] });
+        });
+    }
+    if ("pools" in data.state) {
+        data.state.pools.forEach((pool, i) => {
+            if (pool.cta) {
+                targets.push({ action: pool.cta, path: ["state", "pools", i, "cta"] });
+            }
+        });
+    }
+    for (const { action, path } of targets) {
         if (action.modalSlug && !modalSlugs.has(action.modalSlug)) {
             ctx.addIssue({
                 code: zod_1.z.ZodIssueCode.custom,
                 message: `Action "${action.slug}" references modalSlug "${action.modalSlug}" but no matching entry exists in actionModals`,
-                path: ["state", "actions"],
+                path,
             });
         }
     }

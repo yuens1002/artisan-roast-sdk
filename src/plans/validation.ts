@@ -203,20 +203,32 @@ export const HydratedPlanSchema = PlanSchema.extend({
 }).superRefine((data, ctx) => {
   const modalSlugs = new Set((data.actionModals ?? []).map((m) => m.slug));
 
+  // Collect every PlanAction that could carry a modalSlug along with the path
+  // back to its origin in the payload — so a dangling slug on a pool CTA
+  // reports `state.pools[<i>].cta`, not the misleading `state.actions`.
   type ActionLike = { slug: string; modalSlug?: string };
-  const stateActions: ActionLike[] =
-    "actions" in data.state ? (data.state.actions as ActionLike[]) : [];
-  const poolCtas: ActionLike[] =
-    "pools" in data.state
-      ? (data.state.pools as Array<{ cta?: ActionLike }>).flatMap((p) => (p.cta ? [p.cta] : []))
-      : [];
+  type ActionWithPath = { action: ActionLike; path: (string | number)[] };
+  const targets: ActionWithPath[] = [];
 
-  for (const action of [...stateActions, ...poolCtas]) {
+  if ("actions" in data.state) {
+    (data.state.actions as ActionLike[]).forEach((action, i) => {
+      targets.push({ action, path: ["state", "actions", i] });
+    });
+  }
+  if ("pools" in data.state) {
+    (data.state.pools as Array<{ cta?: ActionLike }>).forEach((pool, i) => {
+      if (pool.cta) {
+        targets.push({ action: pool.cta, path: ["state", "pools", i, "cta"] });
+      }
+    });
+  }
+
+  for (const { action, path } of targets) {
     if (action.modalSlug && !modalSlugs.has(action.modalSlug)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: `Action "${action.slug}" references modalSlug "${action.modalSlug}" but no matching entry exists in actionModals`,
-        path: ["state", "actions"],
+        path,
       });
     }
   }
