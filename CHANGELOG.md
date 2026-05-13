@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-05-13
+
+### Fixed
+
+- `UsagePool.countLabel` is now optional in the TypeScript interface (`countLabel?: string`), matching `UsagePoolSchema` (already `.optional()`) and the v0.4.0 changelog declaration. Previously the type required the field while the schema accepted its absence. Loosening — non-breaking.
+- `spec/provider-plan.spec.md` examples updated to satisfy the v0.4.1 validation rule (`url` + non-`ghost` variant requires `iconAfter`). The `NONE.subscribe`, `CANCELLED.reactivate`, and `add-billing` disabled-snippet examples gain `iconAfter: "external-link"` (and `variant: "primary"` where missing). The examples now round-trip through `validate_plan_payload`.
+
+### Added
+
+- `test/validation.test.cjs` — assertion that a `UsagePool` without `countLabel` validates successfully.
+
 ## [0.5.0] - 2026-05-12
 
 ### Breaking Changes
@@ -194,7 +205,8 @@ case "PENDING": /* NONE-shaped card: name, statusInfo copy, "Check Status" CTA, 
   - `ResolvedPlansResponse` — shape for `GET /api/plans/resolved` (Bearer auth, per-instance)
 - Subpath export: `artisan-roast-sdk/plans`
 
-[Unreleased]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.3.2...v0.4.0
