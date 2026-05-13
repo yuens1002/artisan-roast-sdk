@@ -1268,6 +1268,111 @@ export declare const InactiveStateSchema: z.ZodObject<{
         descText?: string | undefined;
     } | undefined;
 }>;
+export declare const PendingStateSchema: z.ZodObject<{
+    status: z.ZodLiteral<"PENDING">;
+    statusInfo: z.ZodOptional<z.ZodObject<{
+        descIcon: z.ZodOptional<z.ZodString>;
+        descText: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    }, {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    }>>;
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
+        slug: z.ZodString;
+        label: z.ZodString;
+        url: z.ZodOptional<z.ZodString>;
+        endpoint: z.ZodOptional<z.ZodString>;
+        iconBefore: z.ZodOptional<z.ZodString>;
+        iconAfter: z.ZodOptional<z.ZodString>;
+        variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+        modalSlug: z.ZodOptional<z.ZodString>;
+        disabled: z.ZodOptional<z.ZodBoolean>;
+        disabledReason: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, "many">;
+}, "strict", z.ZodTypeAny, {
+    status: "PENDING";
+    actions: {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }[];
+    statusInfo?: {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    } | undefined;
+}, {
+    status: "PENDING";
+    actions: {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }[];
+    statusInfo?: {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    } | undefined;
+}>;
 export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodObject<{
     status: z.ZodLiteral<"NONE">;
     actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
@@ -2360,6 +2465,110 @@ export declare const PlanStateSchema: z.ZodDiscriminatedUnion<"status", [z.ZodOb
         descIcon?: string | undefined;
         descText?: string | undefined;
     } | undefined;
+}>, z.ZodObject<{
+    status: z.ZodLiteral<"PENDING">;
+    statusInfo: z.ZodOptional<z.ZodObject<{
+        descIcon: z.ZodOptional<z.ZodString>;
+        descText: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    }, {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    }>>;
+    actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
+        slug: z.ZodString;
+        label: z.ZodString;
+        url: z.ZodOptional<z.ZodString>;
+        endpoint: z.ZodOptional<z.ZodString>;
+        iconBefore: z.ZodOptional<z.ZodString>;
+        iconAfter: z.ZodOptional<z.ZodString>;
+        variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+        modalSlug: z.ZodOptional<z.ZodString>;
+        disabled: z.ZodOptional<z.ZodBoolean>;
+        disabledReason: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }, {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }>, "many">;
+}, "strict", z.ZodTypeAny, {
+    status: "PENDING";
+    actions: {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }[];
+    statusInfo?: {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    } | undefined;
+}, {
+    status: "PENDING";
+    actions: {
+        slug: string;
+        label: string;
+        url?: string | undefined;
+        variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+        iconAfter?: string | undefined;
+        endpoint?: string | undefined;
+        iconBefore?: string | undefined;
+        modalSlug?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledReason?: string | undefined;
+    }[];
+    statusInfo?: {
+        descIcon?: string | undefined;
+        descText?: string | undefined;
+    } | undefined;
 }>]>;
 export declare const BenefitsBlockSchema: z.ZodObject<{
     activeHeader: z.ZodOptional<z.ZodString>;
@@ -2474,7 +2683,8 @@ export declare const PlanDetailsSchema: z.ZodObject<{
     } | undefined;
     excludes?: string[] | undefined;
 }>;
-export declare const ConfirmActionConfigSchema: z.ZodObject<{
+export declare const FeedbackFormModalSchema: z.ZodObject<{
+    type: z.ZodLiteral<"feedbackForm">;
     slug: z.ZodString;
     heading: z.ZodString;
     description: z.ZodString;
@@ -2506,15 +2716,16 @@ export declare const ConfirmActionConfigSchema: z.ZodObject<{
         maxLength: number;
     }>>;
 }, "strip", z.ZodTypeAny, {
-    slug: string;
-    heading: string;
-    description: string;
     reasonsLabel: string;
     reasons: {
         label: string;
         value: string;
     }[];
     keepLabel: string;
+    slug: string;
+    type: "feedbackForm";
+    heading: string;
+    description: string;
     confirmLabel: string;
     other?: {
         label: string;
@@ -2523,15 +2734,16 @@ export declare const ConfirmActionConfigSchema: z.ZodObject<{
     } | undefined;
     confirmIcon?: string | undefined;
 }, {
-    slug: string;
-    heading: string;
-    description: string;
     reasonsLabel: string;
     reasons: {
         label: string;
         value: string;
     }[];
     keepLabel: string;
+    slug: string;
+    type: "feedbackForm";
+    heading: string;
+    description: string;
     confirmLabel: string;
     other?: {
         label: string;
@@ -2540,6 +2752,118 @@ export declare const ConfirmActionConfigSchema: z.ZodObject<{
     } | undefined;
     confirmIcon?: string | undefined;
 }>;
+export declare const PaymentConfirmModalSchema: z.ZodObject<{
+    type: z.ZodLiteral<"paymentConfirm">;
+    slug: z.ZodString;
+    heading: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    confirmLabel: z.ZodString;
+    processingMessages: z.ZodArray<z.ZodString, "many">;
+}, "strip", z.ZodTypeAny, {
+    slug: string;
+    processingMessages: string[];
+    type: "paymentConfirm";
+    heading: string;
+    confirmLabel: string;
+    description?: string | undefined;
+}, {
+    slug: string;
+    processingMessages: string[];
+    type: "paymentConfirm";
+    heading: string;
+    confirmLabel: string;
+    description?: string | undefined;
+}>;
+export declare const ActionModalSchema: z.ZodDiscriminatedUnion<"type", [z.ZodObject<{
+    type: z.ZodLiteral<"feedbackForm">;
+    slug: z.ZodString;
+    heading: z.ZodString;
+    description: z.ZodString;
+    reasonsLabel: z.ZodString;
+    reasons: z.ZodArray<z.ZodObject<{
+        value: z.ZodString;
+        label: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        label: string;
+        value: string;
+    }, {
+        label: string;
+        value: string;
+    }>, "many">;
+    keepLabel: z.ZodString;
+    confirmLabel: z.ZodString;
+    confirmIcon: z.ZodOptional<z.ZodString>;
+    other: z.ZodOptional<z.ZodObject<{
+        label: z.ZodString;
+        placeholder: z.ZodString;
+        maxLength: z.ZodNumber;
+    }, "strip", z.ZodTypeAny, {
+        label: string;
+        placeholder: string;
+        maxLength: number;
+    }, {
+        label: string;
+        placeholder: string;
+        maxLength: number;
+    }>>;
+}, "strip", z.ZodTypeAny, {
+    reasonsLabel: string;
+    reasons: {
+        label: string;
+        value: string;
+    }[];
+    keepLabel: string;
+    slug: string;
+    type: "feedbackForm";
+    heading: string;
+    description: string;
+    confirmLabel: string;
+    other?: {
+        label: string;
+        placeholder: string;
+        maxLength: number;
+    } | undefined;
+    confirmIcon?: string | undefined;
+}, {
+    reasonsLabel: string;
+    reasons: {
+        label: string;
+        value: string;
+    }[];
+    keepLabel: string;
+    slug: string;
+    type: "feedbackForm";
+    heading: string;
+    description: string;
+    confirmLabel: string;
+    other?: {
+        label: string;
+        placeholder: string;
+        maxLength: number;
+    } | undefined;
+    confirmIcon?: string | undefined;
+}>, z.ZodObject<{
+    type: z.ZodLiteral<"paymentConfirm">;
+    slug: z.ZodString;
+    heading: z.ZodString;
+    description: z.ZodOptional<z.ZodString>;
+    confirmLabel: z.ZodString;
+    processingMessages: z.ZodArray<z.ZodString, "many">;
+}, "strip", z.ZodTypeAny, {
+    slug: string;
+    processingMessages: string[];
+    type: "paymentConfirm";
+    heading: string;
+    confirmLabel: string;
+    description?: string | undefined;
+}, {
+    slug: string;
+    processingMessages: string[];
+    type: "paymentConfirm";
+    heading: string;
+    confirmLabel: string;
+    description?: string | undefined;
+}>]>;
 export declare const PlanSchema: z.ZodObject<{
     slug: z.ZodString;
     name: z.ZodString;
@@ -2650,7 +2974,8 @@ export declare const PlanSchema: z.ZodObject<{
     salePrice: z.ZodOptional<z.ZodNumber>;
     saleEndsAt: z.ZodOptional<z.ZodString>;
     saleLabel: z.ZodOptional<z.ZodString>;
-    actionModals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+    actionModals: z.ZodOptional<z.ZodArray<z.ZodDiscriminatedUnion<"type", [z.ZodObject<{
+        type: z.ZodLiteral<"feedbackForm">;
         slug: z.ZodString;
         heading: z.ZodString;
         description: z.ZodString;
@@ -2682,15 +3007,16 @@ export declare const PlanSchema: z.ZodObject<{
             maxLength: number;
         }>>;
     }, "strip", z.ZodTypeAny, {
-        slug: string;
-        heading: string;
-        description: string;
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -2699,15 +3025,16 @@ export declare const PlanSchema: z.ZodObject<{
         } | undefined;
         confirmIcon?: string | undefined;
     }, {
-        slug: string;
-        heading: string;
-        description: string;
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -2715,7 +3042,28 @@ export declare const PlanSchema: z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }>, "many">>;
+    }>, z.ZodObject<{
+        type: z.ZodLiteral<"paymentConfirm">;
+        slug: z.ZodString;
+        heading: z.ZodString;
+        description: z.ZodOptional<z.ZodString>;
+        confirmLabel: z.ZodString;
+        processingMessages: z.ZodArray<z.ZodString, "many">;
+    }, "strip", z.ZodTypeAny, {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    }, {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    }>]>, "many">>;
 }, "strip", z.ZodTypeAny, {
     slug: string;
     description: string;
@@ -2752,16 +3100,17 @@ export declare const PlanSchema: z.ZodObject<{
     salePrice?: number | undefined;
     saleEndsAt?: string | undefined;
     saleLabel?: string | undefined;
-    actionModals?: {
-        slug: string;
-        heading: string;
-        description: string;
+    actionModals?: ({
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -2769,7 +3118,14 @@ export declare const PlanSchema: z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }[] | undefined;
+    } | {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    })[] | undefined;
 }, {
     slug: string;
     description: string;
@@ -2806,16 +3162,17 @@ export declare const PlanSchema: z.ZodObject<{
     salePrice?: number | undefined;
     saleEndsAt?: string | undefined;
     saleLabel?: string | undefined;
-    actionModals?: {
-        slug: string;
-        heading: string;
-        description: string;
+    actionModals?: ({
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -2823,7 +3180,14 @@ export declare const PlanSchema: z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }[] | undefined;
+    } | {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    })[] | undefined;
 }>;
 export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     slug: z.ZodString;
@@ -2935,7 +3299,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
     salePrice: z.ZodOptional<z.ZodNumber>;
     saleEndsAt: z.ZodOptional<z.ZodString>;
     saleLabel: z.ZodOptional<z.ZodString>;
-    actionModals: z.ZodOptional<z.ZodArray<z.ZodObject<{
+    actionModals: z.ZodOptional<z.ZodArray<z.ZodDiscriminatedUnion<"type", [z.ZodObject<{
+        type: z.ZodLiteral<"feedbackForm">;
         slug: z.ZodString;
         heading: z.ZodString;
         description: z.ZodString;
@@ -2967,15 +3332,16 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             maxLength: number;
         }>>;
     }, "strip", z.ZodTypeAny, {
-        slug: string;
-        heading: string;
-        description: string;
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -2984,15 +3350,16 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         } | undefined;
         confirmIcon?: string | undefined;
     }, {
-        slug: string;
-        heading: string;
-        description: string;
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -3000,7 +3367,28 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }>, "many">>;
+    }>, z.ZodObject<{
+        type: z.ZodLiteral<"paymentConfirm">;
+        slug: z.ZodString;
+        heading: z.ZodString;
+        description: z.ZodOptional<z.ZodString>;
+        confirmLabel: z.ZodString;
+        processingMessages: z.ZodArray<z.ZodString, "many">;
+    }, "strip", z.ZodTypeAny, {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    }, {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    }>]>, "many">>;
 } & {
     state: z.ZodDiscriminatedUnion<"status", [z.ZodObject<{
         status: z.ZodLiteral<"NONE">;
@@ -4094,6 +4482,110 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         } | undefined;
+    }>, z.ZodObject<{
+        status: z.ZodLiteral<"PENDING">;
+        statusInfo: z.ZodOptional<z.ZodObject<{
+            descIcon: z.ZodOptional<z.ZodString>;
+            descText: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        }, {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        }>>;
+        actions: z.ZodArray<z.ZodEffects<z.ZodObject<{
+            slug: z.ZodString;
+            label: z.ZodString;
+            url: z.ZodOptional<z.ZodString>;
+            endpoint: z.ZodOptional<z.ZodString>;
+            iconBefore: z.ZodOptional<z.ZodString>;
+            iconAfter: z.ZodOptional<z.ZodString>;
+            variant: z.ZodOptional<z.ZodEnum<["primary", "secondary", "ghost", "destructive"]>>;
+            modalSlug: z.ZodOptional<z.ZodString>;
+            disabled: z.ZodOptional<z.ZodBoolean>;
+            disabledReason: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }, {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }>, "many">;
+    }, "strict", z.ZodTypeAny, {
+        status: "PENDING";
+        actions: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }[];
+        statusInfo?: {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        } | undefined;
+    }, {
+        status: "PENDING";
+        actions: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }[];
+        statusInfo?: {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        } | undefined;
     }>]>;
 }, "strip", z.ZodTypeAny, {
     slug: string;
@@ -4310,20 +4802,39 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         } | undefined;
+    } | {
+        status: "PENDING";
+        actions: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }[];
+        statusInfo?: {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        } | undefined;
     };
     salePrice?: number | undefined;
     saleEndsAt?: string | undefined;
     saleLabel?: string | undefined;
-    actionModals?: {
-        slug: string;
-        heading: string;
-        description: string;
+    actionModals?: ({
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -4331,7 +4842,14 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }[] | undefined;
+    } | {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    })[] | undefined;
 }, {
     slug: string;
     description: string;
@@ -4547,20 +5065,39 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         } | undefined;
+    } | {
+        status: "PENDING";
+        actions: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }[];
+        statusInfo?: {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        } | undefined;
     };
     salePrice?: number | undefined;
     saleEndsAt?: string | undefined;
     saleLabel?: string | undefined;
-    actionModals?: {
-        slug: string;
-        heading: string;
-        description: string;
+    actionModals?: ({
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -4568,7 +5105,14 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }[] | undefined;
+    } | {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    })[] | undefined;
 }>, {
     slug: string;
     description: string;
@@ -4784,20 +5328,39 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         } | undefined;
+    } | {
+        status: "PENDING";
+        actions: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }[];
+        statusInfo?: {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        } | undefined;
     };
     salePrice?: number | undefined;
     saleEndsAt?: string | undefined;
     saleLabel?: string | undefined;
-    actionModals?: {
-        slug: string;
-        heading: string;
-        description: string;
+    actionModals?: ({
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -4805,7 +5368,14 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }[] | undefined;
+    } | {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    })[] | undefined;
 }, {
     slug: string;
     description: string;
@@ -5021,20 +5591,39 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             descIcon?: string | undefined;
             descText?: string | undefined;
         } | undefined;
+    } | {
+        status: "PENDING";
+        actions: {
+            slug: string;
+            label: string;
+            url?: string | undefined;
+            variant?: "primary" | "secondary" | "ghost" | "destructive" | undefined;
+            iconAfter?: string | undefined;
+            endpoint?: string | undefined;
+            iconBefore?: string | undefined;
+            modalSlug?: string | undefined;
+            disabled?: boolean | undefined;
+            disabledReason?: string | undefined;
+        }[];
+        statusInfo?: {
+            descIcon?: string | undefined;
+            descText?: string | undefined;
+        } | undefined;
     };
     salePrice?: number | undefined;
     saleEndsAt?: string | undefined;
     saleLabel?: string | undefined;
-    actionModals?: {
-        slug: string;
-        heading: string;
-        description: string;
+    actionModals?: ({
         reasonsLabel: string;
         reasons: {
             label: string;
             value: string;
         }[];
         keepLabel: string;
+        slug: string;
+        type: "feedbackForm";
+        heading: string;
+        description: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -5042,6 +5631,13 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
             maxLength: number;
         } | undefined;
         confirmIcon?: string | undefined;
-    }[] | undefined;
+    } | {
+        slug: string;
+        processingMessages: string[];
+        type: "paymentConfirm";
+        heading: string;
+        confirmLabel: string;
+        description?: string | undefined;
+    })[] | undefined;
 }>;
 //# sourceMappingURL=validation.d.ts.map

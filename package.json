@@ -1,6 +1,6 @@
 {
   "name": "artisan-roast-sdk",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "TypeScript SDK for building integrations with Artisan Roast stores — plans, add-ons, and plugins",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -29,6 +29,8 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
+    "pretest": "npm run build",
+    "test": "node --test",
     "start": "node dist/mcp/server.js",
     "dev": "PORT=3100 node dist/mcp/server.js"
   },

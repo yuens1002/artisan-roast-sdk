@@ -8,7 +8,8 @@ function registerPlanTools(server) {
     server.registerTool("validate_plan_payload", {
         description: "Validates a Plan or HydratedPlan JSON payload against the artisan-roast-sdk schema. " +
             "Returns { valid: true } on success or structured zod errors on failure. " +
-            "All PlanState.status values must be UPPERCASE (NONE, ACTIVE, TRIAL, EXPIRED, CANCELLED, INACTIVE).",
+            "All PlanState.status values must be UPPERCASE (NONE, ACTIVE, TRIAL, EXPIRED, CANCELLED, INACTIVE, PENDING). " +
+            "actionModals entries are a discriminated union on `type` (feedbackForm | paymentConfirm); a PlanAction.modalSlug must resolve to one.",
         inputSchema: {
             payload: zod_1.z
                 .string()

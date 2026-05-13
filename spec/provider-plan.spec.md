@@ -1,6 +1,6 @@
 # Provider Spec — artisan-roast-sdk
 
-**Version:** 0.3.0
+**Version:** 0.5.0
 
 Implement these two endpoints and your plans will render in any Artisan Roast store. The store has no slug-specific logic — it renders whatever your payload says.
 
@@ -100,27 +100,30 @@ Item icons (green check) are hardcoded in the component — not a payload field.
 
 ---
 
-## `ProgressBar`
+## `UsagePool`
 
-Used on `TrialState` and `ExpiredState` in place of raw `daysRemaining`/`daysLimit` values. Platform computes all values server-side.
+Carried by `ACTIVE`, `TRIAL`, and `ExpiredState` as `pools: UsagePool[]`. A trial's remaining time is just another pool (`slug: "trial-days"`). Platform computes all values server-side. `PENDING` has no pools — provisioning has nothing to display yet.
 
 ```typescript
-interface ProgressBar {
-  icon: string;       // Lucide icon name (e.g. "clock")
-  label: string;      // e.g. "Trial days"
-  value: number;      // current value (e.g. 10 remaining)
-  total: number;      // maximum (e.g. 14 total)
-  countLabel: string; // e.g. "remaining" | "used"
+interface UsagePool {
+  slug: string;
+  label: string;       // e.g. "Trial days", "Priority Tickets"
+  limit: number;       // total available
+  used: number;        // consumed so far
+  purchased?: number;  // add-on credits granted on top of plan allowance
+  icon?: string;       // Lucide icon name rendered before the label
+  countLabel: string;  // unit suffix — "{used} / {limit} {countLabel}" (e.g. "days", "used")
+  cta?: PlanAction;    // optional per-pool action (e.g. "Book Session"); persists across plan states
 }
 ```
 
-Rendered as: `{icon} {label}   {value} / {total} {countLabel}`
+Rendered as: `{icon} {label}   {used} / {limit} {countLabel}`
 
 ---
 
 ## `StatusInfo`
 
-Optional secondary description line below the badge, available on all states except `NONE`. Platform builds the full sentence server-side — the store renders it verbatim.
+Optional secondary description line below the badge, available on all states except `NONE` (including `PENDING`). Platform builds the full sentence server-side — the store renders it verbatim.
 
 ```typescript
 interface StatusInfo {
@@ -167,7 +170,7 @@ Show badge, `statusInfo` (renewal date), usage pools, and management CTA.
       "descText": "Renews on May 30, 2026."
     },
     "pools": [
-      { "slug": "tickets", "label": "Priority Tickets", "limit": 5, "used": 2 }
+      { "slug": "tickets", "label": "Priority Tickets", "icon": "ticket", "limit": 5, "used": 2, "countLabel": "used" }
     ],
     "actions": [
       {
@@ -186,7 +189,7 @@ Show badge, `statusInfo` (renewal date), usage pools, and management CTA.
 
 ### `TRIAL` — active time-bounded trial
 
-Show a progress bar and billing CTA.
+Show the trial-days pool (a `UsagePool` with `slug: "trial-days"`) and a billing CTA.
 
 ```json
 {
@@ -194,22 +197,18 @@ Show a progress bar and billing CTA.
     "status": "TRIAL",
     "badge": "Active Trial",
     "badgeIcon": "clock",
-    "progress": {
-      "icon": "clock",
-      "label": "Trial days",
-      "value": 10,
-      "total": 14,
-      "countLabel": "remaining"
-    },
+    "pools": [
+      { "slug": "trial-days", "icon": "clock", "label": "Trial days", "limit": 14, "used": 4, "countLabel": "days" }
+    ],
     "actions": [
-      { "slug": "add-billing", "label": "Add Billing", "url": "https://buy.stripe.com/...", "variant": "primary" },
+      { "slug": "add-billing", "label": "Add Billing", "url": "https://buy.stripe.com/...", "iconAfter": "external-link", "variant": "primary" },
       { "slug": "cancel", "label": "Cancel Trial", "variant": "ghost", "modalSlug": "cancel-trial" }
     ]
   }
 }
 ```
 
-When billing has been added and the trial is extended to 30 days, return `badge: "Extended Trial"` and `progress.total: 30`. To disable `add-billing` once billing is on file:
+When billing has been added and the trial is extended to 30 days, return `badge: "Extended Trial"` and `pools[0].limit: 30`. To disable `add-billing` once billing is on file:
 
 ```json
 { "slug": "add-billing", "label": "Add Billing", "url": "...", "disabled": true, "disabledReason": "Billing already on file" }
@@ -219,7 +218,7 @@ When billing has been added and the trial is extended to 30 days, return `badge:
 
 ### `EXPIRED` — grace period before deprovision
 
-Show the progress bar at zero, `statusInfo` with deprovision date, and a subscribe CTA.
+Show the trial-days pool full (`used === limit`), `statusInfo` with the deprovision date, and a subscribe CTA.
 
 ```json
 {
@@ -227,20 +226,16 @@ Show the progress bar at zero, `statusInfo` with deprovision date, and a subscri
     "status": "EXPIRED",
     "badge": "Expired",
     "badgeIcon": "clock",
-    "progress": {
-      "icon": "clock",
-      "label": "Trial days",
-      "value": 0,
-      "total": 14,
-      "countLabel": "remaining"
-    },
+    "pools": [
+      { "slug": "trial-days", "icon": "clock", "label": "Trial days", "limit": 14, "used": 14, "countLabel": "days" }
+    ],
     "deprovisionAt": "2026-05-14T00:00:00Z",
     "statusInfo": {
       "descIcon": "alert-circle",
       "descText": "Trial ended. Store will be removed on May 14, 2026."
     },
     "actions": [
-      { "slug": "subscribe", "label": "Subscribe Now", "url": "https://buy.stripe.com/...", "variant": "primary" }
+      { "slug": "subscribe", "label": "Subscribe Now", "url": "https://buy.stripe.com/...", "iconAfter": "external-link", "variant": "primary" }
     ]
   }
 }
@@ -287,11 +282,36 @@ Show deactivation date, `statusInfo`, comeback benefits (`inactiveItems`), and a
       "descText": "Subscription ended. Renew to restore your store."
     },
     "actions": [
-      { "slug": "renew", "label": "Renew", "url": "https://buy.stripe.com/...", "variant": "primary" }
+      { "slug": "renew", "label": "Renew", "url": "https://buy.stripe.com/...", "iconAfter": "external-link", "variant": "primary" }
     ]
   }
 }
 ```
+
+---
+
+### `PENDING` — provisioning after a paid conversion
+
+The customer has paid (trial conversion or direct subscribe) and the store is being provisioned — this can take minutes. Render a NONE-shaped card: plan name, `statusInfo` copy, a "Check Status" CTA, and a spinner during the poll. The resolver keeps returning `PENDING` while provisioning, then `ACTIVE` once the store is live. This is **not** a frozen-modal wait — the customer can navigate away and come back.
+
+No `pools` — provisioning has no usage to display yet.
+
+```json
+{
+  "state": {
+    "status": "PENDING",
+    "statusInfo": {
+      "descIcon": "loader-2",
+      "descText": "Setting up your store — this can take a few minutes."
+    },
+    "actions": [
+      { "slug": "check-status", "label": "Check Status", "endpoint": "/api/plans/status", "variant": "primary" }
+    ]
+  }
+}
+```
+
+The paid conversion that produces `PENDING` is driven by a `paymentConfirm` action modal (see [`actionModals`](#actionmodals) below) — the subscribe action opens it, the charge resolves, the resolver flips the plan to `PENDING`.
 
 ---
 
@@ -301,10 +321,11 @@ The store recognises these slugs and handles them:
 
 | Slug | Behaviour |
 |------|-----------|
-| `subscribe` | Opens `url` in new tab |
+| `subscribe` | Opens `url` in new tab, or — if `modalSlug` points at a `paymentConfirm` modal — opens that modal; on charge resolve the plan flips to `PENDING` |
 | `add-billing` | Opens `url` in new tab; respects `disabled` + `disabledReason` |
 | `manage-billing` | POSTs to `endpoint`, redirects to returned `{ url }` |
-| `cancel` | Opens the modal identified by `action.modalSlug` from the plan's `actionModals` array |
+| `cancel` | Opens the modal identified by `action.modalSlug` from the plan's `actionModals` array (a `feedbackForm`) |
+| `check-status` | POSTs to `endpoint` to re-check provisioning; rendered on `PENDING` cards alongside a spinner |
 | `reactivate` | Opens `url` in new tab |
 | `renew` | Opens `url` in new tab |
 
@@ -347,12 +368,17 @@ Any [Lucide](https://lucide.dev) icon name is valid. Common values:
 
 ## `actionModals`
 
-Optional array on any plan. Each entry is a `ConfirmActionConfig` identified by `slug`. A `PlanAction` references an entry via `modalSlug` — when clicked, the store opens the matching dialog before executing the action. If `actionModals` is absent or no action has a `modalSlug`, no dialog is shown.
+Optional array on any plan. Each entry is an `ActionModal` — a discriminated union on `type`, identified by `slug`. A `PlanAction` references an entry via `modalSlug`; when the action is clicked, the store opens the matching modal and branches on `modal.type` to render the right shape. If `actionModals` is absent or no action has a `modalSlug`, no modal is shown. All UI copy comes from the config — no hardcoded strings in the store.
+
+### `type: "feedbackForm"` — "tell us why" dialog
+
+Reasons dropdown + keep/confirm. On confirm, the store runs the action. (This is the shape that was `ConfirmActionConfig` before v0.5.0.) `confirmIcon` is optional — include `"external-link"` when the confirm action navigates away from the store. `other` is optional — include to show a free-text textarea below the reason dropdown.
 
 ```json
 {
   "actionModals": [
     {
+      "type": "feedbackForm",
       "slug": "cancel-trial",
       "heading": "Cancel your trial?",
       "description": "We'd love to know why before you go.",
@@ -371,6 +397,7 @@ Optional array on any plan. Each entry is a `ConfirmActionConfig` identified by 
       }
     },
     {
+      "type": "feedbackForm",
       "slug": "cancel-stripe",
       "heading": "Cancel your trial?",
       "description": "Your card is on file. Cancel to stop any future charges.",
@@ -388,7 +415,26 @@ Optional array on any plan. Each entry is a `ConfirmActionConfig` identified by 
 }
 ```
 
-`confirmIcon` is optional — include `"external-link"` when the confirm action navigates away from the store. `other` is optional — include to show a free-text textarea below the reason dropdown.
+### `type: "paymentConfirm"` — payment-loop modal
+
+The popup during a paid conversion. The customer confirms the charge, then sees a non-dismissable spinner with status copy while Stripe processes; the modal closes when the charge resolves, and the plan then flips to `PENDING`. `description` is optional (a price line / pre-confirm copy). `processingMessages` is the status copy under the spinner — a single string, or an ordered list the store cycles through.
+
+```json
+{
+  "actionModals": [
+    {
+      "type": "paymentConfirm",
+      "slug": "convert-payment",
+      "heading": "Completing your subscription",
+      "description": "You'll be charged $79.00/month. Cancel anytime.",
+      "confirmLabel": "Confirm and pay",
+      "processingMessages": ["Processing payment…", "Almost there…"]
+    }
+  ]
+}
+```
+
+A `subscribe` action references it via `"modalSlug": "convert-payment"`.
 
 ---
 
