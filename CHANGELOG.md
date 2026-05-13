@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-05-12
+
+### Breaking Changes
+
+- **`ConfirmActionConfig` removed.** `Plan.actionModals` is now an array of `ActionModal` — a discriminated union on `type`. The old `ConfirmActionConfig` shape is now `FeedbackFormModal` with `type: "feedbackForm"` added. Existing modal configs (`cancel-trial`, `cancel-stripe`, `cancel-subscription`) must gain `type: "feedbackForm"`. Consumers that imported `ConfirmActionConfig` import `FeedbackFormModal` (or `ActionModal`) instead, and must branch on `modal.type` when rendering.
+
+### Added
+
+- `PendingState` — new `PlanState` variant (`status: "PENDING"`) for the window between a successful paid conversion and the store going live. NONE-shaped: `statusInfo?` + `actions[]` (typically one endpoint-backed `check-status`), no `pools[]`. The resolver returns `PENDING` while provisioning, then `ACTIVE`. Added to the `PlanState` union; `PendingStateSchema` (`.strict()` — rejects `pools`) added to `PlanStateSchema`.
+- `FeedbackFormModal` (`type: "feedbackForm"`) — the reason-capture dialog (was `ConfirmActionConfig`).
+- `PaymentConfirmModal` (`type: "paymentConfirm"`) — payment-loop modal: confirm the charge, then a non-dismissable spinner with `processingMessages` while Stripe processes; closes when the charge resolves (the plan then flips to `PENDING`).
+- `ActionModal` union (`FeedbackFormModal | PaymentConfirmModal`); `FeedbackFormModalSchema`, `PaymentConfirmModalSchema`, `ActionModalSchema` in `validation.ts`.
+- `PENDING` scaffold scenario in `scaffolds.ts` (House Blend provisioning, with a `convert-payment` `paymentConfirm` modal config).
+- `test/` directory + `npm test` (`node --test`) — first test suite: validation behaviour for `PENDING`, the discriminated `actionModals`, `modalSlug` resolution, every scaffold; MCP `serverInfo.version` over an in-memory transport.
+
+### Fixed
+
+- MCP server reports the real package version. `src/mcp/server.ts` no longer hardcodes `"0.2.0"` in the `McpServer` constructor or the `/health` + `/` responses — `SDK_VERSION` is read from `package.json` at runtime (module-relative `readFileSync`, CJS/ESM-agnostic). `httpServer.listen()` is guarded by `require.main === module`; `createMcpServer`, `createHttpServer`, and `SDK_VERSION` are exported.
+- `HydratedPlanSchema` `modalSlug` validation now also covers `pool.cta.modalSlug`, not just `state.actions[].modalSlug`.
+- `plans://integration/producer` MCP resource pointed at the old `docs/provider-spec.md` path; corrected to `spec/provider-plan.spec.md`.
+
+### Migration
+
+```typescript
+// actionModals — add a discriminator
+// Before: { slug: "cancel-trial", heading: "...", reasons: [...], ... }
+// After:  { type: "feedbackForm", slug: "cancel-trial", heading: "...", reasons: [...], ... }
+
+// imports
+// Before: import type { ConfirmActionConfig } from "artisan-roast-sdk";
+// After:  import type { FeedbackFormModal, PaymentConfirmModal, ActionModal } from "artisan-roast-sdk";
+
+// rendering — branch on type
+const modal = plan.actionModals?.find((m) => m.slug === action.modalSlug);
+switch (modal?.type) {
+  case "feedbackForm": /* reasons dropdown + keep/confirm */ break;
+  case "paymentConfirm": /* confirm charge → spinner + processingMessages */ break;
+}
+
+// PlanState switches must add a PENDING case (no longer exhaustive otherwise)
+case "PENDING": /* NONE-shaped card: name, statusInfo copy, "Check Status" CTA, spinner */ break;
+```
+
+### Consumer migration
+
+- `ecomm-ai-app` — `case "PENDING":` renders a `PendingCard` (not `null`); `ConfirmActionDialog` splits on `modal.type`; dev scenario `dev-pending`; bump SDK ref to `#v0.5.0` (TypeScript flags the non-exhaustive switch + every `ConfirmActionConfig` reference)
+- `artisan-roast-platform` — resolver emits `PENDING` while a store is provisioning; grep `ConfirmActionConfig`; run `npm run precheck`
+
+## [0.4.1] - 2026-05-11
+
+### Changed
+
+- **Validation:** `PlanActionSchema` now requires `iconAfter` on actions that have a `url` and a non-`ghost` variant (typically `"external-link"`). Previously unenforced.
+
+### Scaffold corrections
+
+- All `SCENARIOS` actions updated to satisfy the `iconAfter` rule; scaffold contract completed across remaining scenarios.
+
 ## [0.4.0] - 2026-05-07
 
 ### Changed
@@ -136,6 +194,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `ResolvedPlansResponse` — shape for `GET /api/plans/resolved` (Bearer auth, per-instance)
 - Subpath export: `artisan-roast-sdk/plans`
 
-[Unreleased]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.4.1...v0.5.0
+[0.4.1]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.3.2...v0.4.0
+[0.3.2]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.2.1...v0.3.0
+[0.2.1]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/yuens1002/artisan-roast-sdk/releases/tag/v0.1.0
