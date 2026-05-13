@@ -172,6 +172,19 @@ test("a modalSlug that resolves to an actionModals entry is accepted", () => {
   assert.equal(result.success, true, result.success ? "" : JSON.stringify(result.error.issues));
 });
 
+test("UsagePool without countLabel is accepted (countLabel is optional)", () => {
+  const result = HydratedPlanSchema.safeParse({
+    ...baseHouseBlend,
+    state: {
+      status: "ACTIVE",
+      badge: "Active",
+      pools: [{ slug: "tickets", label: "Priority Tickets", limit: 5, used: 0, icon: "ticket" }],
+      actions: [],
+    },
+  });
+  assert.equal(result.success, true, result.success ? "" : JSON.stringify(result.error.issues));
+});
+
 test("every scaffold scenario validates against HydratedPlanSchema", () => {
   for (const key of SCENARIO_KEYS) {
     const result = HydratedPlanSchema.safeParse(SCENARIOS[key]);

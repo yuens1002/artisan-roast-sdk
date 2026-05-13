@@ -1,6 +1,6 @@
 # Provider Spec — artisan-roast-sdk
 
-**Version:** 0.5.0
+**Version:** 0.5.1
 
 Implement these two endpoints and your plans will render in any Artisan Roast store. The store has no slug-specific logic — it renders whatever your payload says.
 
@@ -147,7 +147,7 @@ Show pricing and a subscribe CTA.
   "state": {
     "status": "NONE",
     "actions": [
-      { "slug": "subscribe", "label": "Subscribe Now", "url": "https://buy.stripe.com/..." }
+      { "slug": "subscribe", "label": "Subscribe Now", "url": "https://buy.stripe.com/...", "variant": "primary", "iconAfter": "external-link" }
     ]
   }
 }
@@ -211,7 +211,7 @@ Show the trial-days pool (a `UsagePool` with `slug: "trial-days"`) and a billing
 When billing has been added and the trial is extended to 30 days, return `badge: "Extended Trial"` and `pools[0].limit: 30`. To disable `add-billing` once billing is on file:
 
 ```json
-{ "slug": "add-billing", "label": "Add Billing", "url": "...", "disabled": true, "disabledReason": "Billing already on file" }
+{ "slug": "add-billing", "label": "Add Billing", "url": "...", "variant": "primary", "iconAfter": "external-link", "disabled": true, "disabledReason": "Billing already on file" }
 ```
 
 ---
@@ -259,7 +259,7 @@ Show a countdown to deprovision and a reactivate CTA.
       "descText": "Cancellation scheduled. Access ends May 14, 2026."
     },
     "actions": [
-      { "slug": "reactivate", "label": "Reactivate", "url": "https://buy.stripe.com/...", "variant": "primary" }
+      { "slug": "reactivate", "label": "Reactivate", "url": "https://buy.stripe.com/...", "iconAfter": "external-link", "variant": "primary" }
     ]
   }
 }
