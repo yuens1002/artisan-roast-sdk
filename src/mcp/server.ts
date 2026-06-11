@@ -4,7 +4,9 @@ import { join } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { registerPlanTools } from "./tools/plans.js";
+import { registerAlaCarteTools } from "./tools/alacarte.js";
 import { registerPlanResources } from "./resources/plans.js";
+import { registerAlaCarteResources } from "./resources/alacarte.js";
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3100;
 
@@ -23,7 +25,9 @@ export function createMcpServer(): McpServer {
     version: SDK_VERSION,
   });
   registerPlanTools(server);
+  registerAlaCarteTools(server);
   registerPlanResources(server);
+  registerAlaCarteResources(server);
   return server;
 }
 

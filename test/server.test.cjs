@@ -37,7 +37,13 @@ test("the MCP server exposes validate_plan_payload and the scaffold tools", asyn
   try {
     const { tools } = await client.listTools();
     const names = tools.map((t) => t.name).sort();
-    assert.deepEqual(names, ["scaffold_plan_state", "scaffold_resolved_endpoint", "validate_plan_payload"]);
+    assert.deepEqual(names, [
+      "scaffold_alacarte_package",
+      "scaffold_plan_state",
+      "scaffold_resolved_endpoint",
+      "validate_addon_payload",
+      "validate_plan_payload",
+    ]);
   } finally {
     await client.close();
     await server.close();

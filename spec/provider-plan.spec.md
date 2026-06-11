@@ -1,6 +1,6 @@
 # Provider Spec — artisan-roast-sdk
 
-**Version:** 0.5.1
+**Version:** 0.6.0
 
 Implement these two endpoints and your plans will render in any Artisan Roast store. The store has no slug-specific logic — it renders whatever your payload says.
 
@@ -61,6 +61,86 @@ Authorization: Bearer <license-key>
   "plans": [ /* HydratedPlan[] — see state variants below */ ]
 }
 ```
+
+### `GET /api/add-ons`
+
+Public. No authentication.
+
+Returns the catalogue of à la carte packages available for one-time purchase.
+
+**Response: `AddOnsResponse`**
+
+```json
+{
+  "packages": [
+    {
+      "id": "alacarte-tickets-5",
+      "label": "5 Support Tickets",
+      "description": "Add 5 priority support tickets to your account. Never expire.",
+      "price": "$39",
+      "checkoutUrl": "/api/checkout",
+      "pools": [
+        { "slug": "ticket", "label": "Priority Tickets", "quantity": 5 }
+      ]
+    },
+    {
+      "id": "alacarte-sessions-2",
+      "label": "2 1:1 Sessions (30 min)",
+      "description": "Add 2 scheduled 1:1 sessions. Never expire.",
+      "price": "$99",
+      "checkoutUrl": "/api/checkout",
+      "pools": [
+        { "slug": "one_on_one", "label": "1:1 Sessions", "quantity": 2 }
+      ]
+    }
+  ]
+}
+```
+
+`price` is a formatted display string (`"$39"`) — the platform formats before emitting. `pools` describes what the package grants; each entry has `slug`, `label`, and `quantity`. This is **not** a `UsagePool` — it carries no live usage state.
+
+---
+
+### `POST /api/checkout`
+
+Public. No authentication.
+
+Initiates a checkout session. Two mutually exclusive request shapes — discriminated by which key is present:
+
+**Plan subscription variant (`planSlug`):**
+
+```json
+{
+  "planSlug": "house-blend",
+  "customerEmail": "user@example.com",
+  "instanceId": "inst_abc123",
+  "callbackUrl": "https://mystore.example.com/dashboard",
+  "trial": false
+}
+```
+
+`customerEmail`, `instanceId`, `callbackUrl`, and `trial` are all optional for the plan variant.
+
+**À la carte one-time variant (`alaCarteSlug`):**
+
+```json
+{
+  "alaCarteSlug": "alacarte-tickets-5",
+  "customerEmail": "user@example.com",
+  "instanceId": "inst_abc123",
+  "callbackUrl": "https://mystore.example.com/dashboard"
+}
+```
+
+`customerEmail` is **required** for the à la carte variant. `instanceId` and `callbackUrl` are optional.
+
+**Response: `CheckoutResponse`** (both variants)
+
+```json
+{ "url": "https://checkout.stripe.com/..." }
+```
+
+The store redirects the customer to the returned `url`.
 
 ---
 

@@ -12,7 +12,9 @@ const node_path_1 = require("node:path");
 const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
 const streamableHttp_js_1 = require("@modelcontextprotocol/sdk/server/streamableHttp.js");
 const plans_js_1 = require("./tools/plans.js");
+const alacarte_js_1 = require("./tools/alacarte.js");
 const plans_js_2 = require("./resources/plans.js");
+const alacarte_js_2 = require("./resources/alacarte.js");
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3100;
 // Single source of truth for the SDK version: package.json, read module-relative
 // at runtime (dist/mcp/server.js → ../../package.json). CJS/ESM-agnostic, no
@@ -24,7 +26,9 @@ function createMcpServer() {
         version: exports.SDK_VERSION,
     });
     (0, plans_js_1.registerPlanTools)(server);
+    (0, alacarte_js_1.registerAlaCarteTools)(server);
     (0, plans_js_2.registerPlanResources)(server);
+    (0, alacarte_js_2.registerAlaCarteResources)(server);
     return server;
 }
 function createHttpServer() {
