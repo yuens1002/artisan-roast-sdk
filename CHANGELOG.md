@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-06-11
+
+### Added
+
+- `AlaCartePool` — minimal pool shape describing what a package grants (`slug`, `label`, `quantity`). Distinct from `UsagePool` — carries no live usage state (`used`, `limit`, `purchased`, etc.).
+- `AlaCartePackage` — describes one à la carte package returned by `GET /api/add-ons` (`id`, `label`, `description`, `price: string`, `checkoutUrl`, `pools: AlaCartePool[]`). `price` is a formatted display string (e.g. `"$39"`) — the platform formats before emitting.
+- `AddOnsResponse` — response shape for `GET /api/add-ons` (`packages: AlaCartePackage[]`).
+- `CheckoutRequest` — discriminated TypeScript union for `POST /api/checkout`. `planSlug` variant (plan subscription, `customerEmail` optional) and `alaCarteSlug` variant (à la carte one-time, `customerEmail` required). The two variants are mutually exclusive — assigning both keys is a type error.
+- `CheckoutResponse` — response shape for `POST /api/checkout` (`url: string`). Both `CheckoutRequest` variants return this shape.
+- `AlaCartePoolSchema`, `AlaCartePackageSchema`, `AddOnsResponseSchema`, `CheckoutResponseSchema` — Zod schemas for runtime validation of the above types.
+- `ALACARTE_SCENARIOS` (`TICKETS_5`, `SESSIONS_2`) — scaffold fixtures satisfying `AlaCartePackage`; for store component tests. Consistent with `SCENARIOS` in `./plans`.
+- `ALACARTE_SCENARIO_KEYS` — typed key array for `ALACARTE_SCENARIOS`.
+- New export path `./alacarte` — all of the above accessible via `import { ... } from "artisan-roast-sdk/alacarte"`. Also re-exported from the root `"artisan-roast-sdk"` entry.
+- `spec/provider-plan.spec.md` updated with `GET /api/add-ons` and `POST /api/checkout` endpoint documentation.
+
 ## [0.5.1] - 2026-05-13
 
 ### Fixed

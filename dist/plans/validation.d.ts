@@ -2724,8 +2724,8 @@ export declare const FeedbackFormModalSchema: z.ZodObject<{
     keepLabel: string;
     slug: string;
     type: "feedbackForm";
-    heading: string;
     description: string;
+    heading: string;
     confirmLabel: string;
     other?: {
         label: string;
@@ -2742,8 +2742,8 @@ export declare const FeedbackFormModalSchema: z.ZodObject<{
     keepLabel: string;
     slug: string;
     type: "feedbackForm";
-    heading: string;
     description: string;
+    heading: string;
     confirmLabel: string;
     other?: {
         label: string;
@@ -2815,8 +2815,8 @@ export declare const ActionModalSchema: z.ZodDiscriminatedUnion<"type", [z.ZodOb
     keepLabel: string;
     slug: string;
     type: "feedbackForm";
-    heading: string;
     description: string;
+    heading: string;
     confirmLabel: string;
     other?: {
         label: string;
@@ -2833,8 +2833,8 @@ export declare const ActionModalSchema: z.ZodDiscriminatedUnion<"type", [z.ZodOb
     keepLabel: string;
     slug: string;
     type: "feedbackForm";
-    heading: string;
     description: string;
+    heading: string;
     confirmLabel: string;
     other?: {
         label: string;
@@ -3015,8 +3015,8 @@ export declare const PlanSchema: z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -3033,8 +3033,8 @@ export declare const PlanSchema: z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -3067,8 +3067,8 @@ export declare const PlanSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     slug: string;
     description: string;
-    name: string;
     price: number;
+    name: string;
     currency: string;
     interval: "month" | "year";
     features: string[];
@@ -3109,8 +3109,8 @@ export declare const PlanSchema: z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -3129,8 +3129,8 @@ export declare const PlanSchema: z.ZodObject<{
 }, {
     slug: string;
     description: string;
-    name: string;
     price: number;
+    name: string;
     currency: string;
     interval: "month" | "year";
     features: string[];
@@ -3171,8 +3171,8 @@ export declare const PlanSchema: z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -3340,8 +3340,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -3358,8 +3358,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -4590,8 +4590,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     slug: string;
     description: string;
-    name: string;
     price: number;
+    name: string;
     currency: string;
     interval: "month" | "year";
     features: string[];
@@ -4833,8 +4833,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -4853,8 +4853,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
 }, {
     slug: string;
     description: string;
-    name: string;
     price: number;
+    name: string;
     currency: string;
     interval: "month" | "year";
     features: string[];
@@ -5096,8 +5096,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -5116,8 +5116,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
 }>, {
     slug: string;
     description: string;
-    name: string;
     price: number;
+    name: string;
     currency: string;
     interval: "month" | "year";
     features: string[];
@@ -5359,8 +5359,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;
@@ -5379,8 +5379,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
 }, {
     slug: string;
     description: string;
-    name: string;
     price: number;
+    name: string;
     currency: string;
     interval: "month" | "year";
     features: string[];
@@ -5622,8 +5622,8 @@ export declare const HydratedPlanSchema: z.ZodEffects<z.ZodObject<{
         keepLabel: string;
         slug: string;
         type: "feedbackForm";
-        heading: string;
         description: string;
+        heading: string;
         confirmLabel: string;
         other?: {
             label: string;

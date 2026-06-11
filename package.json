@@ -1,6 +1,6 @@
 {
   "name": "artisan-roast-sdk",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "TypeScript SDK for building integrations with Artisan Roast stores — plans, add-ons, and plugins",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -20,6 +20,11 @@
       "types": "./dist/plans/scaffolds.d.ts",
       "import": "./dist/plans/scaffolds.js",
       "require": "./dist/plans/scaffolds.js"
+    },
+    "./alacarte": {
+      "types": "./dist/alacarte/index.d.ts",
+      "import": "./dist/alacarte/index.js",
+      "require": "./dist/alacarte/index.js"
     }
   },
   "files": [

@@ -1,0 +1,11 @@
+{
+  "branches": {
+    "feat/alacarte-contract": {
+      "status": "verified",
+      "acs_passed": 21,
+      "acs_total": 21,
+      "tasks": [],
+      "notes": "All 21 ACs pass (19 original + 2 coverage-gap ACs added post-Gate-1 review). 23/23 tests green. 0 type errors. 0 iterations needed."
+    }
+  }
+}
