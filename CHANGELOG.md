@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-06-11
+
+### Added
+
+- Export path `./alacarte/scaffolds` — `ALACARTE_SCENARIOS` and `ALACARTE_SCENARIO_KEYS` now importable directly at `import { ALACARTE_SCENARIOS } from "artisan-roast-sdk/alacarte/scaffolds"`, matching the `./plans/scaffolds` pattern.
+
 ## [0.6.0] - 2026-06-11
 
 ### Added
