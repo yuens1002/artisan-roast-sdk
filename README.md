@@ -50,12 +50,19 @@ function resolvePlans(licenseKey: string): ResolvedPlansResponse {
 
 ## What you need to implement
 
-Two endpoints:
+Core plan endpoints:
 
 | Endpoint | Auth | Purpose |
 |----------|------|---------|
 | `GET /api/plans` | None | Static plan definitions |
 | `GET /api/plans/resolved` | Bearer license key | Plans with computed per-instance state |
+
+À la carte endpoints (optional — implement if you offer one-time add-ons):
+
+| Endpoint | Auth | Purpose |
+|----------|------|---------|
+| `GET /api/add-ons` | None | À la carte package catalogue |
+| `POST /api/checkout` | None | Initiate a checkout session (plan subscription or à la carte) |
 
 Read the [Provider Spec](spec/provider-plan.spec.md) for the full contract — all state variants (`NONE`, `ACTIVE`, `TRIAL`, `EXPIRED`, `CANCELLED`, `INACTIVE`, `PENDING`), action slugs the store handles, and example payloads.
 
@@ -65,6 +72,7 @@ Read the [Provider Spec](spec/provider-plan.spec.md) for the full contract — a
 |--------|----------|
 | `artisan-roast-sdk` | Everything |
 | `artisan-roast-sdk/plans` | Plan types only |
+| `artisan-roast-sdk/alacarte` | À la carte types, schemas, and scaffold fixtures |
 
 ## Contributing
 
