@@ -7,6 +7,12 @@ import {
 } from "../../alacarte/index.js";
 import { ALACARTE_SCENARIOS, ALACARTE_SCENARIO_KEYS } from "../../alacarte/scaffolds.js";
 
+const AnyAlaCarteSchema = z.union([
+  AddOnsResponseSchema,
+  AlaCartePackageSchema,
+  CheckoutResponseSchema,
+]);
+
 export function registerAlaCarteTools(server: McpServer): void {
   server.registerTool(
     "validate_addon_payload",
@@ -37,12 +43,6 @@ export function registerAlaCarteTools(server: McpServer): void {
           ],
         };
       }
-
-      const AnyAlaCarteSchema = z.union([
-        AddOnsResponseSchema,
-        AlaCartePackageSchema,
-        CheckoutResponseSchema,
-      ]);
 
       const result = AnyAlaCarteSchema.safeParse(parsed);
       if (result.success) {
