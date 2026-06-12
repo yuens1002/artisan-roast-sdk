@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-06-12
+
+### Fixed
+
+- `validate_addon_payload` MCP tool now dispatches through `z.union([AddOnsResponseSchema, AlaCartePackageSchema, CheckoutResponseSchema])` instead of ad-hoc key checks — self-documenting and auto-extensible when new shapes are added.
+- `AnyAlaCarteSchema` hoisted to module scope — allocated once at import time rather than on every tool call.
+
+### Added
+
+- `test/alacarte-tool.test.cjs` — runtime behavior tests for `validate_addon_payload` covering all 5 dispatch paths: invalid JSON, valid `AddOnsResponse`, valid `AlaCartePackage`, valid `CheckoutResponse`, and a structurally wrong object.
+
 ## [0.6.1] - 2026-06-11
 
 ### Added
@@ -226,7 +237,8 @@ case "PENDING": /* NONE-shaped card: name, statusInfo copy, "Check Status" CTA, 
   - `ResolvedPlansResponse` — shape for `GET /api/plans/resolved` (Bearer auth, per-instance)
 - Subpath export: `artisan-roast-sdk/plans`
 
-[Unreleased]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.6.2...HEAD
+[0.6.2]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.6.1...v0.6.2
 [0.5.1]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/yuens1002/artisan-roast-sdk/compare/v0.4.0...v0.4.1
