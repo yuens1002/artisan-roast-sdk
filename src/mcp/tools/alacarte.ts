@@ -7,6 +7,12 @@ import {
 } from "../../alacarte/index.js";
 import { ALACARTE_SCENARIOS, ALACARTE_SCENARIO_KEYS } from "../../alacarte/scaffolds.js";
 
+const AnyAlaCarteSchema = z.union([
+  AddOnsResponseSchema,
+  AlaCartePackageSchema,
+  CheckoutResponseSchema,
+]);
+
 export function registerAlaCarteTools(server: McpServer): void {
   server.registerTool(
     "validate_addon_payload",
@@ -38,51 +44,12 @@ export function registerAlaCarteTools(server: McpServer): void {
         };
       }
 
-      if (parsed !== null && typeof parsed === "object") {
-        // AddOnsResponse has `packages`
-        if ("packages" in parsed) {
-          const result = AddOnsResponseSchema.safeParse(parsed);
-          if (result.success) {
-            return { content: [{ type: "text", text: JSON.stringify({ valid: true }) }] };
-          }
-          return {
-            content: [{ type: "text", text: JSON.stringify({ valid: false, errors: result.error.issues }) }],
-          };
-        }
-
-        // AlaCartePackage has `id` + `pools`
-        if ("id" in parsed && "pools" in parsed) {
-          const result = AlaCartePackageSchema.safeParse(parsed);
-          if (result.success) {
-            return { content: [{ type: "text", text: JSON.stringify({ valid: true }) }] };
-          }
-          return {
-            content: [{ type: "text", text: JSON.stringify({ valid: false, errors: result.error.issues }) }],
-          };
-        }
-
-        // CheckoutResponse has `url`
-        if ("url" in parsed) {
-          const result = CheckoutResponseSchema.safeParse(parsed);
-          if (result.success) {
-            return { content: [{ type: "text", text: JSON.stringify({ valid: true }) }] };
-          }
-          return {
-            content: [{ type: "text", text: JSON.stringify({ valid: false, errors: result.error.issues }) }],
-          };
-        }
+      const result = AnyAlaCarteSchema.safeParse(parsed);
+      if (result.success) {
+        return { content: [{ type: "text", text: JSON.stringify({ valid: true }) }] };
       }
-
       return {
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify({
-              valid: false,
-              errors: [{ message: "Payload does not match AddOnsResponse, AlaCartePackage, or CheckoutResponse shape" }],
-            }),
-          },
-        ],
+        content: [{ type: "text", text: JSON.stringify({ valid: false, errors: result.error.issues }) }],
       };
     }
   );
